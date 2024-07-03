@@ -3,13 +3,16 @@
 
 
 # 2. 개발 환경 
-## Architecture
+>  Architecture
+
 Layered Architecture Based
 
-## DB ORM
+> DB ORM
+
 MySql/JPA
 
-## Test
+> Test
+
 JUnit + AssertJ 
 
 
