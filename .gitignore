@@ -6,6 +6,7 @@ gradle
 !**/src/main/**/build/
 !**/src/test/**/build/
 src/main/resources/application.yml
+hhplus-e-commerce
 
 ### STS ###
 .apt_generated
