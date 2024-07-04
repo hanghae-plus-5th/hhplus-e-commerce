@@ -33,7 +33,7 @@ JUnit + AssertJ
 
 ![장바구니 목록조회](https://github.com/whitewise95/hhplus-e-commerce/assets/81284265/73de6ded-cc32-4a04-83df-1ace78d34ed9)  
 
-![잔액충전](https://github.com/whitewise95/hhplus-e-commerce/assets/81284265/828645a2-89ed-46b8-8ac9-4ee8a4f00645)  
+![잔액충전.png](docs%2F%EC%9E%94%EC%95%A1%EC%B6%A9%EC%A0%84.png)
 
 ![잔액조회](https://github.com/whitewise95/hhplus-e-commerce/assets/81284265/5737af7d-2c7f-49d1-b1b2-2c559e47e9d8)  
 
