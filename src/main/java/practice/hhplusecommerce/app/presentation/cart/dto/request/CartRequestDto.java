@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.presentation.cart.dto.request;
+package practice.hhplusecommerce.app.presentation.cart.dto.request;
 
 import lombok.Getter;
 import lombok.Setter;

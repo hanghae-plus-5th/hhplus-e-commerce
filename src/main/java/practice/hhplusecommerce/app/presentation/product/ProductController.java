@@ -1,17 +1,17 @@
-package practice.hhplusecommerce.presentation.product;
+package practice.hhplusecommerce.app.presentation.product;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import practice.hhplusecommerce.presentation.product.dto.response.ProductResponseDto;
+import practice.hhplusecommerce.app.presentation.product.dto.response.ProductResponseDto.ProductResponse;
 
 @RestController
 @RequestMapping("/api/product")
 public class ProductController {
 
   @GetMapping
-  public ProductResponseDto.ProductResponse getProductList() {
-    return new ProductResponseDto.ProductResponse(
+  public ProductResponse getProductList() {
+    return new ProductResponse(
         1L,
         "수박",
         150,
@@ -20,8 +20,8 @@ public class ProductController {
   }
 
   @GetMapping("/top")
-  public ProductResponseDto.ProductResponse getTop5ProductList() {
-    return new ProductResponseDto.ProductResponse(
+  public ProductResponse getTop5ProductList() {
+    return new ProductResponse(
         1L,
         "수박",
         150,

@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.presentation.cart.dto.response;
+package practice.hhplusecommerce.app.presentation.cart.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.presentation.product.dto.response;
+package practice.hhplusecommerce.app.presentation.product.dto.response;
 
 import java.util.ArrayList;
 import java.util.List;
