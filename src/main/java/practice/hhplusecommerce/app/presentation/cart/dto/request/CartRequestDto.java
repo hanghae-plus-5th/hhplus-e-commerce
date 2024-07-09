@@ -12,10 +12,10 @@ public class CartRequestDto {
   public static class CartCreate {
 
     @Schema(description = "유저 고유 번호", defaultValue = "1")
-    private Integer userId;
+    private Long userId;
 
     @Schema(description = "상품 고유 번호", defaultValue = "1")
-    private Integer productId;
+    private Long productId;
 
     @Schema(description = "구매 개수", defaultValue = "1")
     private Integer quantity;

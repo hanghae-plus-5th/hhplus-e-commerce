@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,15 +24,15 @@ public class CartController {
   @Operation(summary = "장바구니 목록 조회")
   @ApiResponse(responseCode = "404", description = "유저정보가 존재하지 않습니다.")
   @GetMapping
-  public CartResponse getCartList() {
-    return new CartResponse(
+  public List<CartResponse> getCartList(@RequestParam("userId") Long userId) {
+    return List.of(new CartResponse(
         1L,
         "수박",
         15,
         5,
         1500,
         1L
-    );
+    ));
   }
 
   @Operation(summary = "장바구니 추가")
@@ -58,7 +59,7 @@ public class CartController {
   @DeleteMapping("/{cart-id}")
   public CartResponse delete(
       @RequestParam("userId") Long userId,
-      @PathVariable("cart-id") String cartId
+      @PathVariable("cart-id") Long cartId
   ) {
     return new CartResponse(
         1L,

@@ -14,7 +14,7 @@ public class OrderRequestDto {
   public static class OrderCreate {
 
     @Schema(description = "유저 고유번호", defaultValue = "1")
-    private Integer userId;
+    private Long userId;
 
     @Schema(description = "주문할 상품 목록")
     private List<OrderProductCreate> productList = new ArrayList<>();
@@ -26,7 +26,7 @@ public class OrderRequestDto {
   public static class OrderProductCreate {
 
     @Schema(description = "상품 고유 번호", defaultValue = "1")
-    private Integer id;
+    private Long id;
 
     @Schema(description = "주문한 개수", defaultValue = "40")
     private Integer quantity;

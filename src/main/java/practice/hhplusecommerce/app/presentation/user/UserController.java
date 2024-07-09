@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import practice.hhplusecommerce.app.presentation.user.dto.response.UserResponseDto.UserResponse;
 
@@ -28,7 +29,8 @@ public class UserController {
   @ApiResponse(responseCode = "404", description = "유저정보가 존재하지 않습니다.")
   @PatchMapping("/{user-id}/amount")
   public UserResponse patchUserAmount(
-      @PathVariable("user-id") String userId
+      @PathVariable("user-id") String userId,
+      @RequestParam("amount") Integer amount
   ) {
     return new UserResponse(1L, "백현명", 5000);
   }
