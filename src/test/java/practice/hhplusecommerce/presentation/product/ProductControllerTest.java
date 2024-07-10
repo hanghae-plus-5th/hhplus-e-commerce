@@ -19,7 +19,7 @@ public class ProductControllerTest {
   private MockMvc mockMvc;
 
   @Test
-  public void 상품목록조회_성공() throws Exception {
+  public void 상품목록조회_성공 () throws Exception {
     //given
     //when
     mockMvc.perform(get("/api/product"))
@@ -32,7 +32,7 @@ public class ProductControllerTest {
   }
 
   @Test
-  public void 인기판매상품조회_성공() throws Exception {
+  public void 인기판매상품조회_성공 () throws Exception {
     //given
     //when
     mockMvc.perform(get("/api/product"))

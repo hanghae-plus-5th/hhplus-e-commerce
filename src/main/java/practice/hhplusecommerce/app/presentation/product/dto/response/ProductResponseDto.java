@@ -1,6 +1,7 @@
 package practice.hhplusecommerce.app.presentation.product.dto.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +9,6 @@ import lombok.Setter;
 public class ProductResponseDto {
 
   @Getter
-  @Setter
   @NoArgsConstructor
   @Schema(name = "상품 응답 DTO")
   public static class ProductResponse {
@@ -25,6 +25,7 @@ public class ProductResponseDto {
     @Schema(description = "재고", defaultValue = "5")
     private Integer stock;
 
+    @Builder
     public ProductResponse(Long id, String name, Integer price, Integer stock) {
       this.id = id;
       this.name = name;
