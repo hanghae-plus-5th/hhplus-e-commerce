@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.app.infrastrucure.product;
 
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -21,5 +22,15 @@ public class ProductRepositoryImpl implements ProductRepository {
   @Override
   public Optional<Product> findById(Long productId) {
     return productJpaRepository.findById(productId);
+  }
+
+  @Override
+  public List<Product> findAll() {
+    return null;
+  }
+
+  @Override
+  public List<Product> findAllByIdIn(List<Long> productId) {
+    return null;
   }
 }

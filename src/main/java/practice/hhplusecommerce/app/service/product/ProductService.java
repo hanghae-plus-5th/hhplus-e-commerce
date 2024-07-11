@@ -4,7 +4,6 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import practice.hhplusecommerce.app.domain.product.Product;
-import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto;
 import practice.hhplusecommerce.global.exception.NotFoundException;
 
 @Service
@@ -14,7 +13,7 @@ public class ProductService {
   private final ProductRepository productRepository;
 
   public List<Product> getProductList() {
-    return null;
+    return productRepository.findAll();
   }
 
   public Product getProduct(Long productId) {
@@ -22,6 +21,10 @@ public class ProductService {
   }
 
   public List<Product> getProductListByProductIdList(List<Long> productIdList) {
-    return null;
+    List<Product> productList = productRepository.findAllByIdIn(productIdList);
+    if (productList.size() != productIdList.size()) {
+      throw new NotFoundException("상품", true);
+    }
+    return productList;
   }
 }
