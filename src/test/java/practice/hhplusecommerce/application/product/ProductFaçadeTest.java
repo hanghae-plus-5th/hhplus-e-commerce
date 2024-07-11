@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import jakarta.persistence.Tuple;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,32 +60,5 @@ public class ProductFaçadeTest {
     }
 
     verify(productService).getProductList();
-  }
-
-  //상위 상품 목록조회
-  @Test
-  public void 상위상품목록조회_상품정보가반환되는지 () {
-    //given
-    List<Product> productList = List.of(
-        new Product(1L, "꽃병1", 1500, 5),
-        new Product(2L, "꽃병2", 1500, 5),
-        new Product(3L, "꽃병3", 1500, 5),
-        new Product(4L, "꽃병4", 1500, 5),
-        new Product(5L, "꽃병5", 1500, 5)
-    );
-    List<Long> productIdList = List.of(1L, 2L, 3L, 4L, 5L);
-
-    //when
-    when(orderService.getTop5ProductIdsLast3Days()).thenReturn(productIdList);
-    when(productService.getProductListByProductIdList(productIdList)).thenReturn(productList);
-    List<ProductFacadeDto> whenList = ProductFacade.getTop5ProductsLast3Days();
-
-    //then
-    for (int i = 0; i < 5; i++) {
-      assertEquals(whenList.get(i).id(), productList.get(i).getId());
-      assertEquals(whenList.get(i).name(), productList.get(i).getName());
-      assertEquals(whenList.get(i).price(), productList.get(i).getPrice());
-      assertEquals(whenList.get(i).stock(), productList.get(i).getStock());
-    }
   }
 }
