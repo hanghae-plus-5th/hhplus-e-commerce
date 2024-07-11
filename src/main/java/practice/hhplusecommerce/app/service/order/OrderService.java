@@ -5,17 +5,14 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import practice.hhplusecommerce.app.domain.order.Order;
-import practice.hhplusecommerce.app.domain.order.OrderProduct;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
 
-  public Order createOrder(Order order) {
-    return null;
-  }
+  private final OrderRepository orderRepository;
 
-  public List<Long> getTop5ProductIdsLast3Days() {
+  public Order createOrder(Order order) {
     return null;
   }
 }
