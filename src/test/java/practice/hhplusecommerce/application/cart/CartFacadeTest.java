@@ -15,6 +15,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import practice.hhplusecommerce.app.application.cart.CartFacade;
 import practice.hhplusecommerce.app.application.cart.dto.requst.CartFacadeRequestDto;
 import practice.hhplusecommerce.app.application.cart.dto.response.CartFacadeResponseDto;
+import practice.hhplusecommerce.app.domain.cart.Cart;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.cart.CartService;
@@ -110,7 +111,7 @@ public class CartFacadeTest {
 
     when(userService.getUser(userId)).thenReturn(user);
     when(productService.getProduct(productId)).thenReturn(product);
-    when(cartService.createCart(user, product)).thenReturn(cartResponse);
+    when(cartService.createCart(new Cart(null, quantity, user, product))).thenReturn(cartResponse);
 
     CartFacadeRequestDto.Create create = new CartFacadeRequestDto.Create();
     create.setQuantity(quantity);
@@ -154,7 +155,7 @@ public class CartFacadeTest {
 
     when(userService.getUser(userId)).thenReturn(user);
     when(productService.getProduct(productId)).thenReturn(product);
-    when(cartService.createCart(user, product)).thenReturn(cartResponse);
+    when(cartService.createCart(new Cart(null, quantity, user, product))).thenReturn(cartResponse);
 
     CartFacadeRequestDto.Create create = new CartFacadeRequestDto.Create();
     create.setQuantity(quantity);

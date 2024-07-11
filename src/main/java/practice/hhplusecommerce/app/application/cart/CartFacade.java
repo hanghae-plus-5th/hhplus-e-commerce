@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.app.application.cart.dto.requst.CartFacadeRequestDto;
 import practice.hhplusecommerce.app.application.cart.dto.response.CartFacadeResponseDto;
 import practice.hhplusecommerce.app.application.cart.dto.response.CartFacadeResponseDtoMapper;
+import practice.hhplusecommerce.app.domain.cart.Cart;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.cart.CartService;
@@ -35,7 +36,16 @@ public class CartFacade {
     User user = userService.getUser(create.getUserId());
     Product product = productService.getProduct(create.getProductId());
     product.validSoldOut();
-    return CartFacadeResponseDtoMapper.toCartFacadeResponseDto(cartService.createCart(user, product));
+    return CartFacadeResponseDtoMapper.toCartFacadeResponseDto(
+        cartService.createCart(
+            new Cart(
+                null,
+                create.getQuantity(),
+                user,
+                product
+            )
+        )
+    );
   }
 
   @Transactional

@@ -14,6 +14,7 @@ import org.hibernate.annotations.Comment;
 import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.domain.user.User;
+import practice.hhplusecommerce.global.exception.BadRequestException;
 
 @Getter
 @Entity
@@ -42,6 +43,10 @@ public class Cart extends BaseLocalDateTimeEntity {
   private Product product;
 
   public Cart(Long id, Integer quantity, User user, Product product) {
+    if (quantity <= 0){
+        throw new BadRequestException("상품개수는 1개 이상이여야 합니다.");
+    }
+
     this.id = id;
     this.quantity = quantity;
     this.user = user;
