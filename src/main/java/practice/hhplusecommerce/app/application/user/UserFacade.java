@@ -17,9 +17,4 @@ public class UserFacade {
   public UserFacadeDto getUserAmount(Long userId) {
     return UserFacadeDtoMapper.toUserFacadeDto(userService.getUser(userId));
   }
-
-  @Transactional(readOnly = true)
-  public UserFacadeDto chargeUserAmount(Long userId, Integer chargeAmount) {
-    return UserFacadeDtoMapper.toUserFacadeDto(userService.chargeUserAmount(userId, chargeAmount));
-  }
 }

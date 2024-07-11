@@ -35,7 +35,7 @@ public class CartFacade {
   public CartFacadeResponseDto addCart(CartFacadeRequestDto.Create create) {
     User user = userService.getUser(create.getUserId());
     Product product = productService.getProduct(create.getProductId());
-    product.validSoldOut();
+    product.validBuyPossible(create.getQuantity());
     return CartFacadeResponseDtoMapper.toCartFacadeResponseDto(
         cartService.createCart(
             new Cart(

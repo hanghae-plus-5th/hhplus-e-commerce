@@ -35,7 +35,7 @@ public class UserServiceTest {
 
 
   @Test
-  public void 유저조회기능_유저조회되는지_테스트() {
+  public void 잔액조회기능_유저조회되는지_테스트() {
     //given
     long userId = 1L;
     String userName = "백현명";
@@ -53,7 +53,7 @@ public class UserServiceTest {
   }
 
   @Test
-  public void 유저조회기능_유저를_못찾았을경우_에러반환하는지_테스트() {
+  public void 잔액조회기능_유저를_못찾았을경우_에러반환하는지_테스트() {
     //given
     long userId = 1L;
     String userName = "백현명";

@@ -1,6 +1,8 @@
 package practice.hhplusecommerce.app.domain.product;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -15,8 +17,8 @@ import practice.hhplusecommerce.global.exception.BadRequestException;
 public class Product extends BaseLocalDateTimeEntity {
 
   @Id
-  @NotNull
   @Comment("고유번호")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @NotNull
@@ -38,9 +40,9 @@ public class Product extends BaseLocalDateTimeEntity {
     this.stock = stock;
   }
 
-  public void validSoldOut() {
-    if (this.stock == 0){
-      throw new BadRequestException("품절된 상품입니다.");
+  public void validBuyPossible(Integer quantity) {
+    if (this.stock < quantity){
+      throw new BadRequestException("재고가 부족합니다.");
     }
   }
 }

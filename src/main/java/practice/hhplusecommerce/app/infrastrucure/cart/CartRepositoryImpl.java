@@ -16,21 +16,21 @@ public class CartRepositoryImpl implements CartRepository {
 
   @Override
   public List<Cart> findAllByUserId(Long userId) {
-    return null;
+    return cartJpaRepository.findAllByUserId(userId);
   }
 
   @Override
   public Optional<Cart> findById(Long cartId) {
-    return Optional.empty();
+    return cartJpaRepository.findById(cartId);
   }
 
   @Override
   public Cart save(Cart cart) {
-    return null;
+    return cartJpaRepository.save(cart);
   }
 
   @Override
   public void delete(Cart cart) {
-
+    cartJpaRepository.delete(cart);
   }
 }
