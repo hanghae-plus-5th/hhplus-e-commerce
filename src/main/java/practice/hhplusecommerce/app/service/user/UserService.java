@@ -17,5 +17,4 @@ public class UserService {
   public User chargeUserAmount(Long userId, Integer chargeAmount) {
     return null;
   }
-
 }

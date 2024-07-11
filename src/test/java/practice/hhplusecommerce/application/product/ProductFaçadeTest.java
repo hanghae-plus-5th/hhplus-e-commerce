@@ -14,7 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import practice.hhplusecommerce.app.application.product.ProductFacade;
 import practice.hhplusecommerce.app.application.product.dto.ProductFacadeDto;
-import practice.hhplusecommerce.app.entity.product.Product;
+import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.service.product.ProductService;
 
 @MockBean(JpaMetamodelMappingContext.class)

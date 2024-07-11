@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.global.exception.BadRequestException;
 
 @Getter
 @Entity
@@ -32,5 +33,12 @@ public class User extends BaseLocalDateTimeEntity {
     this.id = id;
     this.name = name;
     this.amount = amount;
+  }
+
+  public void chargeAmount(Integer chargeAmount) {
+    if (chargeAmount <= 0) {
+      throw new BadRequestException("1원 이상만 충전이 가능합니다.");
+    }
+    this.amount += chargeAmount;
   }
 }

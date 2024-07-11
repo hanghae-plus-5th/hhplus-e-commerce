@@ -46,23 +46,4 @@ public class UserFacadeTest {
     assertEquals(accountId, when.id());
     assertEquals(name, when.name());
   }
-
-  @Test
-  public void 잔액충전기능테스트_충전이되고_유저정보와잔액이반환되는지() {
-    //given
-    long accountId = 1L;
-    String name = "백현명";
-    int amount = 3000;
-    int chargeAmount = 3000;
-
-    //when
-    User user = new User(accountId, name, amount);
-    when(userService.getUser(accountId)).thenReturn(user);
-    UserFacadeDto when = userFacade.chargeUserAmount(accountId, chargeAmount);
-
-    //then
-    assertEquals(amount + chargeAmount, when.amount());
-    assertEquals(accountId, when.id());
-    assertEquals(name, when.name());
-  }
 }

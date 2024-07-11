@@ -14,10 +14,10 @@ import practice.hhplusecommerce.app.application.order.dto.request.OrderFacadeReq
 import practice.hhplusecommerce.app.application.order.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.app.application.order.dto.request.OrderFacadeRequestDto.OrderProductCreate;
 import practice.hhplusecommerce.app.application.order.dto.response.OrderFacadeResponseDto.OrderResponse;
-import practice.hhplusecommerce.app.entity.order.Order;
-import practice.hhplusecommerce.app.entity.order.OrderProduct;
-import practice.hhplusecommerce.app.entity.product.Product;
-import practice.hhplusecommerce.app.entity.user.User;
+import practice.hhplusecommerce.app.domain.order.Order;
+import practice.hhplusecommerce.app.domain.order.OrderProduct;
+import practice.hhplusecommerce.app.domain.product.Product;
+import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.order.OrderProductService;
 import practice.hhplusecommerce.app.service.order.OrderService;
 import practice.hhplusecommerce.app.service.payment.PaymentService;
@@ -47,7 +47,6 @@ public class OrderFacadeTest {
   @Mock
   PaymentService paymentService;
 
-
   @Test
   public void 주문하기기능_주문정보반환하는지_테스트() {
 
@@ -70,7 +69,7 @@ public class OrderFacadeTest {
     User user = new User(userId, userName, amount);
     when(userService.getUser(userId)).thenReturn(user);
 
-    List<Product> productList =   List.of(new Product(1L, productName, productPrice, stock));
+    List<Product> productList = List.of(new Product(1L, productName, productPrice, stock));
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     Order order = new Order(orderId, productPrice, user);

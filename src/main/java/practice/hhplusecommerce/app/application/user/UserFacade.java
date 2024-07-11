@@ -15,11 +15,11 @@ public class UserFacade {
 
   @Transactional(readOnly = true)
   public UserFacadeDto getUserAmount(Long userId) {
-    return null;
+    return UserFacadeDtoMapper.toUserFacadeDto(userService.getUser(userId));
   }
 
   @Transactional(readOnly = true)
   public UserFacadeDto chargeUserAmount(Long userId, Integer chargeAmount) {
-    return null;
+    return UserFacadeDtoMapper.toUserFacadeDto(userService.chargeUserAmount(userId, chargeAmount));
   }
 }

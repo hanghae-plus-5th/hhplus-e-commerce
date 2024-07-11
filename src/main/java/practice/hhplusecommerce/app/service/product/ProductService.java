@@ -16,6 +16,10 @@ public class ProductService {
     return null;
   }
 
+  public Product getProduct(Long productId) {
+    return null;
+  }
+
   public List<Product> getProductListByProductIdList(List<Long> productIdList) {
     return null;
   }

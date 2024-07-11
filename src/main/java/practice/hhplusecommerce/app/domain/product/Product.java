@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.global.exception.BadRequestException;
 
 @Getter
 @Entity
@@ -35,5 +36,11 @@ public class Product extends BaseLocalDateTimeEntity {
     this.name = name;
     this.price = price;
     this.stock = stock;
+  }
+
+  public void validSoldOut() {
+    if (this.stock == 0){
+      throw new BadRequestException("품절된 상품입니다.");
+    }
   }
 }
