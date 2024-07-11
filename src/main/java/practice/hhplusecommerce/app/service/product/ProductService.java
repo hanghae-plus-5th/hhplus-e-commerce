@@ -24,12 +24,4 @@ public class ProductService {
   public List<Product> getProductListByProductIdList(List<Long> productIdList) {
     return null;
   }
-
-  public List<Product> getTop5ProductsLast3Days() {
-    return null;
-  }
-
-  public List<ProductServiceRequestDto.productStockResponse> getStockList(List<Long> productIdList) {
-    return null;
-  }
 }
