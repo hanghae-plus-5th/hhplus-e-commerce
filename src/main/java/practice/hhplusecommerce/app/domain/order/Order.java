@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.app.entity.order;
+package practice.hhplusecommerce.app.domain.order;
 
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -11,10 +11,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.app.entity.base.BaseLocalDateTimeEntity;
-import practice.hhplusecommerce.app.entity.user.User;
+import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.app.domain.user.User;
 
 @Getter
 @NoArgsConstructor

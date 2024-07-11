@@ -3,7 +3,7 @@ package practice.hhplusecommerce.app.service.product;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import practice.hhplusecommerce.app.entity.product.Product;
+import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto;
 
 @Service

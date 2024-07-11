@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.app.entity.payment;
+package practice.hhplusecommerce.app.domain.payment;
 
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -11,8 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.app.entity.base.BaseLocalDateTimeEntity;
-import practice.hhplusecommerce.app.entity.order.Order;
+import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.app.domain.order.Order;
 
 @Getter
 @Setter

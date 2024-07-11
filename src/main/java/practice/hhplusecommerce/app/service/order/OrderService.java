@@ -2,7 +2,7 @@ package practice.hhplusecommerce.app.service.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import practice.hhplusecommerce.app.entity.order.Order;
+import practice.hhplusecommerce.app.domain.order.Order;
 
 @Service
 @RequiredArgsConstructor

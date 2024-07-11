@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.app.application.user.dto.UserFacadeDto;
 import practice.hhplusecommerce.app.application.user.dto.UserFacadeDtoMapper;
-import practice.hhplusecommerce.app.entity.user.User;
 import practice.hhplusecommerce.app.service.user.UserService;
 
 @Component

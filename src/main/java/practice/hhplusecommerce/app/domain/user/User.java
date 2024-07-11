@@ -1,15 +1,13 @@
-package practice.hhplusecommerce.app.entity.user;
+package practice.hhplusecommerce.app.domain.user;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.app.entity.base.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
 
 @Getter
 @Entity

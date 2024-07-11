@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.app.entity.order;
+package practice.hhplusecommerce.app.domain.order;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

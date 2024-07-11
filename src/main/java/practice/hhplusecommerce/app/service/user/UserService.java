@@ -2,7 +2,7 @@ package practice.hhplusecommerce.app.service.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import practice.hhplusecommerce.app.entity.user.User;
+import practice.hhplusecommerce.app.domain.user.User;
 
 @Service
 @RequiredArgsConstructor

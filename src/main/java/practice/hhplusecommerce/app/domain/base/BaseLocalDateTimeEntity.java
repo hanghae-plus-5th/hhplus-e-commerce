@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.app.entity.base;
+package practice.hhplusecommerce.app.domain.base;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;

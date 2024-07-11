@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.app.entity.cart;
+package practice.hhplusecommerce.app.domain.order;
 
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
@@ -10,16 +10,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.app.entity.base.BaseLocalDateTimeEntity;
-import practice.hhplusecommerce.app.entity.product.Product;
-import practice.hhplusecommerce.app.entity.user.User;
+import practice.hhplusecommerce.app.domain.product.Product;
 
 @Getter
 @Entity
 @NoArgsConstructor
-public class Cart extends BaseLocalDateTimeEntity {
+public class OrderProduct {
 
   @Id
   @NotNull
@@ -27,14 +24,22 @@ public class Cart extends BaseLocalDateTimeEntity {
   private Long id;
 
   @NotNull
-  @Comment("장바구니 담은 상품 개수")
+  @Comment("상품명")
+  private String name;
+
+  @NotNull
+  @Comment("상품 금액")
+  private Integer price;
+
+  @NotNull
+  @Comment("구매 수량")
   private Integer quantity;
 
   @NotNull
-  @Comment("유저 고유 번호")
+  @Comment("주문 고유 번호")
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
-  @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
-  private User user;
+  @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
+  private Order order;
 
   @NotNull
   @Comment("상품 고유 번호")
@@ -42,10 +47,12 @@ public class Cart extends BaseLocalDateTimeEntity {
   @JoinColumn(name = "product_id", foreignKey = @ForeignKey(name = "none", value = ConstraintMode.NO_CONSTRAINT))
   private Product product;
 
-  public Cart(Long id, Integer quantity, User user, Product product) {
+  public OrderProduct(Long id, String name, Integer price, Integer quantity, Order order, Product product) {
     this.id = id;
+    this.name = name;
+    this.price = price;
     this.quantity = quantity;
-    this.user = user;
+    this.order = order;
     this.product = product;
   }
 }
