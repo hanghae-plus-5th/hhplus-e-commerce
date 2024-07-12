@@ -40,8 +40,15 @@ public class Product extends BaseLocalDateTimeEntity {
     this.stock = stock;
   }
 
-  public void validBuyPossible(Integer quantity) {
-    if (this.stock < quantity){
+  public void validSalesPossible(Integer quantity) {
+    if (this.stock < quantity) {
+      throw new BadRequestException("재고가 부족합니다.");
+    }
+  }
+
+  public void decreaseStock(Integer quantity) {
+    this.stock -= quantity;
+    if (this.stock < 0) {
       throw new BadRequestException("재고가 부족합니다.");
     }
   }

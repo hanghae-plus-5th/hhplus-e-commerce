@@ -5,14 +5,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Version;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import practice.hhplusecommerce.app.domain.base.BaseLocalDateTimeEntity;
 import practice.hhplusecommerce.global.exception.BadRequestException;
 
@@ -46,5 +42,18 @@ public class User extends BaseLocalDateTimeEntity {
       throw new BadRequestException("1원 이상만 충전이 가능합니다.");
     }
     this.amount += chargeAmount;
+  }
+
+  public void decreaseAmount(Integer totalProductPrice) {
+    this.amount -= totalProductPrice;
+    if (this.amount < 0) {
+      throw new BadRequestException("잔액이 부족합니다.");
+    }
+  }
+
+  public void validBuyPossible(Integer totalProductPrice) {
+    if (this.amount - totalProductPrice < 0) {
+      throw new BadRequestException("잔액이 부족합니다.");
+    }
   }
 }
