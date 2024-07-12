@@ -1,5 +1,9 @@
 package practice.hhplusecommerce.app.presentation.order;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,10 +13,16 @@ import practice.hhplusecommerce.app.presentation.order.dto.request.OrderRequestD
 import practice.hhplusecommerce.app.presentation.order.dto.response.OrderResponseDto.OrderProductResponse;
 import practice.hhplusecommerce.app.presentation.order.dto.response.OrderResponseDto.OrderResponse;
 
+@Tag(name = "주문")
 @RestController
 @RequestMapping("/api/order")
 public class OrderController {
 
+  @Operation(summary = "주문하기")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "404", description = "유저정보 or 상품정보가 존재하지 않습니다."),
+      @ApiResponse(responseCode = "400", description = "{상품명}이 품절 상태 입니다.")
+  })
   @PostMapping
   public OrderResponse create(
       @RequestBody OrderCreate create
