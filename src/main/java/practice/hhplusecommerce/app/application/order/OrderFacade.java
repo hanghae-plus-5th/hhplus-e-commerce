@@ -56,7 +56,7 @@ public class OrderFacade {
     user.validBuyPossible(totalProductPrice);
 
     Order order = orderService.createOrder(totalProductPrice, user);
-    List<OrderProduct> orderProductList = orderProductService.createOrderProduct(productList, order);
+    List<OrderProduct> orderProductList = orderProductService.createOrderProduct(productList, create.getProductList(), order);
 
     user.decreaseAmount(totalProductPrice);
 

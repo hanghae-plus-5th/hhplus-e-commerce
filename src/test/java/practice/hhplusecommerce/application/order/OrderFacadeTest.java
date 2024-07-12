@@ -25,7 +25,6 @@ import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.dataPlatform.DataPlatform;
 import practice.hhplusecommerce.app.service.order.OrderProductService;
 import practice.hhplusecommerce.app.service.order.OrderService;
-import practice.hhplusecommerce.app.service.payment.PaymentService;
 import practice.hhplusecommerce.app.service.product.ProductService;
 import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto;
 import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto.DeductionStock;
@@ -89,9 +88,6 @@ public class OrderFacadeTest {
     when(orderService.createOrder(productPrice, user)).thenReturn(saveOrder);
 
     List<OrderProduct> orderProductList = List.of(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
-    when(orderProductService.createOrderProduct(productList, saveOrder)).thenReturn(orderProductList);
-
-    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("OK 200");
 
     ProductServiceRequestDto.DeductionStock deductionStock = new DeductionStock();
     deductionStock.setProductId(productId);
@@ -104,6 +100,10 @@ public class OrderFacadeTest {
     orderProductCreate.setId(productId);
     orderProductCreate.setQuantity(quantity);
     create.setProductList(List.of(orderProductCreate));
+
+    when(orderProductService.createOrderProduct(productList, create.getProductList(), saveOrder)).thenReturn(orderProductList);
+    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("OK 200");
+
     OrderResponse orderResponse = orderFacade.order(create);
 
     //then
@@ -274,9 +274,7 @@ public class OrderFacadeTest {
     when(orderService.createOrder(productPrice, user)).thenReturn(saveOrder);
 
     List<OrderProduct> orderProductList = List.of(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
-    when(orderProductService.createOrderProduct(productList, saveOrder)).thenReturn(orderProductList);
-
-    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("FAIL 500");
+   
 
     ProductServiceRequestDto.DeductionStock deductionStock = new DeductionStock();
     deductionStock.setProductId(productId);
@@ -289,6 +287,9 @@ public class OrderFacadeTest {
     orderProductCreate.setId(productId);
     orderProductCreate.setQuantity(quantity);
     create.setProductList(List.of(orderProductCreate));
+
+    when(orderProductService.createOrderProduct(productList, create.getProductList(), saveOrder)).thenReturn(orderProductList);
+    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("FAIL 500");
 
     try {
       orderResponse = orderFacade.order(create);
