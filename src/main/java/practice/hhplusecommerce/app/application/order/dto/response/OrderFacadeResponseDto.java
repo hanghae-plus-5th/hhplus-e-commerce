@@ -13,7 +13,7 @@ public class OrderFacadeResponseDto {
 
     private Long id;
     private Integer orderTotalPrice;
-    private List<OrderResponseDto.OrderProductResponse> orderProductList;
+    private List<OrderFacadeResponseDto.OrderProductResponse> orderProductList;
   }
 
   @Getter
