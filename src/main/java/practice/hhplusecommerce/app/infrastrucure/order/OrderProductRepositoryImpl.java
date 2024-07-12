@@ -15,16 +15,21 @@ import practice.hhplusecommerce.app.service.order.OrderProductRepository;
 @RequiredArgsConstructor
 public class OrderProductRepositoryImpl implements OrderProductRepository {
 
-  private final OrderProductJpaRepository productJpaRepository;
+  private final OrderProductJpaRepository orderProductJpaRepository;
 
   @Override
   public OrderProduct save(OrderProduct orderProduct) {
-    return productJpaRepository.save(orderProduct);
+    return orderProductJpaRepository.save(orderProduct);
   }
 
   @Override
   public List<Tuple> getTop5ProductsLast3Days(LocalDateTime now, LocalDateTime minusDays3) {
-    return productJpaRepository.findTop5ProductsLast3Days(now, minusDays3);
+    return orderProductJpaRepository.findTop5ProductsLast3Days(now, minusDays3);
+  }
+
+  @Override
+  public List<OrderProduct> findAllByOrderId(Long orderId) {
+    return orderProductJpaRepository.findALlByOrderId(orderId);
   }
 
 }

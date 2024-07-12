@@ -47,7 +47,7 @@ public class OrderFacade {
         if (product.getId().equals(orderProductCreate.getId())) {
           product.validSalesPossible(orderProductCreate.getQuantity());
           product.decreaseStock(orderProductCreate.getQuantity());
-          totalProductPrice += product.getPrice();
+          totalProductPrice += product.getPrice() * orderProductCreate.getQuantity();
           break;
         }
       }

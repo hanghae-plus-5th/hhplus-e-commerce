@@ -14,6 +14,6 @@ public class DataPlatformImpl implements DataPlatform {
     log.info("유저고유번호 : " + userId);
     log.info("총주문금액 : " + orderTotalPrice);
     log.info("전송완료");
-    return "OK";
+    return "OK 200";
   }
 }

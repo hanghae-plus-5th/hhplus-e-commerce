@@ -65,10 +65,10 @@ public class OrderFacadeTest {
     //given
     long userId = 1L;
     String userName = "백현명";
-    Integer amount = 2000;
+    Integer amount = 5000;
 
     long productId = 1L;
-    int quantity = 5;
+    int quantity = 1;
     String productName = "꽃병";
     int stock = 5;
 
@@ -135,7 +135,6 @@ public class OrderFacadeTest {
     List<Product> productList = List.of();
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
-
     OrderFacadeRequestDto.Create create = new Create();
     create.setUserId(userId);
 
@@ -146,8 +145,8 @@ public class OrderFacadeTest {
 
     try {
       orderResponse = orderFacade.order(create);
-    }catch (NotFoundException nfe){
-        e = nfe;
+    } catch (NotFoundException nfe) {
+      e = nfe;
     }
 
     //then
@@ -189,7 +188,7 @@ public class OrderFacadeTest {
 
     try {
       orderResponse = orderFacade.order(create);
-    }catch (BadRequestException bre){
+    } catch (BadRequestException bre) {
       e = bre;
     }
 
@@ -232,7 +231,7 @@ public class OrderFacadeTest {
 
     try {
       orderResponse = orderFacade.order(create);
-    }catch (BadRequestException bre){
+    } catch (BadRequestException bre) {
       e = bre;
     }
 
@@ -248,17 +247,18 @@ public class OrderFacadeTest {
     //given
     long userId = 1L;
     String userName = "백현명";
-    Integer amount = 2000;
+    Integer amount = 5000;
 
     long productId = 1L;
-    int quantity = 5;
+    int quantity = 2;
     String productName = "꽃병";
     int stock = 5;
 
     long orderProductId = 1L;
 
     long orderId = 1L;
-    int productPrice = 1500;
+    int productPrice = 300;
+    int totalProductPrice = quantity * productPrice;
 
     BadRequestException e = null;
     OrderResponse orderResponse = null;
@@ -270,11 +270,10 @@ public class OrderFacadeTest {
     List<Product> productList = List.of(new Product(1L, productName, productPrice, stock));
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
-    Order saveOrder = new Order(1L, productPrice, user);
-    when(orderService.createOrder(productPrice, user)).thenReturn(saveOrder);
+    Order saveOrder = new Order(1L, totalProductPrice, user);
+    when(orderService.createOrder(totalProductPrice, user)).thenReturn(saveOrder);
 
     List<OrderProduct> orderProductList = List.of(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
-   
 
     ProductServiceRequestDto.DeductionStock deductionStock = new DeductionStock();
     deductionStock.setProductId(productId);
@@ -289,11 +288,11 @@ public class OrderFacadeTest {
     create.setProductList(List.of(orderProductCreate));
 
     when(orderProductService.createOrderProduct(productList, create.getProductList(), saveOrder)).thenReturn(orderProductList);
-    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("FAIL 500");
+    when(dataPlatform.send(orderId, userId, totalProductPrice)).thenReturn("FAIL 500");
 
     try {
       orderResponse = orderFacade.order(create);
-    }catch (BadRequestException bre){
+    } catch (BadRequestException bre) {
       e = bre;
     }
 
