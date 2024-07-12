@@ -12,6 +12,7 @@ public class OrderService {
   private final OrderRepository orderRepository;
 
   public Order createOrder(Integer totalProductPrice, User user) {
-    return null;
+    Order order = new Order(null, totalProductPrice, user);
+    return orderRepository.save(order);
   }
 }
