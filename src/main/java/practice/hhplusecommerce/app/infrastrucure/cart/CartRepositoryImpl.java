@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import practice.hhplusecommerce.app.domain.cart.Cart;
-import practice.hhplusecommerce.app.domain.cart.CartJpaRepository;
 import practice.hhplusecommerce.app.service.cart.CartRepository;
 
 @Repository

@@ -3,12 +3,9 @@ package practice.hhplusecommerce.app.infrastrucure.order;
 import jakarta.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import practice.hhplusecommerce.app.domain.order.OrderProduct;
-import practice.hhplusecommerce.app.domain.order.OrderProductJpaRepository;
 import practice.hhplusecommerce.app.service.order.OrderProductRepository;
 
 @Repository

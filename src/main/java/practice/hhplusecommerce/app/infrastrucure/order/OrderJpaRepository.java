@@ -1,10 +1,11 @@
-package practice.hhplusecommerce.app.domain.order;
+package practice.hhplusecommerce.app.infrastrucure.order;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import practice.hhplusecommerce.app.domain.order.Order;
 
 @Repository
 public interface OrderJpaRepository extends JpaRepository<Order, Long> {
