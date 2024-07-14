@@ -12,6 +12,7 @@ public class UserService {
 
   private final UserRepository userRepository;
 
+  @Transactional
   public User getUser(Long userId) {
     return userRepository.findById(userId).orElseThrow(() -> new NotFoundException("유저", true));
   }

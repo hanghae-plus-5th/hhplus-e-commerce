@@ -3,6 +3,7 @@ package practice.hhplusecommerce.app.service.product;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.global.exception.NotFoundException;
 
@@ -12,6 +13,7 @@ public class ProductService {
 
   private final ProductRepository productRepository;
 
+  @Transactional
   public List<Product> getProductList() {
     return productRepository.findAll();
   }

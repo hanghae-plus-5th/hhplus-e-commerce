@@ -10,11 +10,9 @@ import practice.hhplusecommerce.app.application.order.dto.response.OrderFacadeRe
 import practice.hhplusecommerce.app.application.order.dto.response.OrderFacadeResponseDto.OrderResponse;
 import practice.hhplusecommerce.app.application.order.dto.response.OrderFacadeResponseDtoMapper;
 import practice.hhplusecommerce.app.domain.order.Order;
-import practice.hhplusecommerce.app.domain.order.OrderProduct;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.dataPlatform.DataPlatform;
-import practice.hhplusecommerce.app.service.order.OrderProductService;
 import practice.hhplusecommerce.app.service.order.OrderService;
 import practice.hhplusecommerce.app.service.product.ProductService;
 import practice.hhplusecommerce.app.service.user.UserService;
@@ -28,7 +26,6 @@ public class OrderFacade {
   private final OrderService orderService;
   private final UserService userService;
   private final ProductService productService;
-  private final OrderProductService orderProductService;
   private final DataPlatform dataPlatform;
 
   @Transactional
@@ -55,9 +52,7 @@ public class OrderFacade {
 
     user.validBuyPossible(totalProductPrice);
 
-    Order order = orderService.createOrder(totalProductPrice, user);
-    List<OrderProduct> orderProductList = orderProductService.createOrderProduct(productList, create.getProductList(), order);
-
+    Order order = orderService.createOrder(totalProductPrice, user, productList, create.getProductList());
     user.decreaseAmount(totalProductPrice);
 
     String status = dataPlatform.send(order.getId(), order.getUser().getId(), order.getOrderTotalPrice());
@@ -66,7 +61,7 @@ public class OrderFacade {
     }
 
     OrderResponse orderResponse = OrderFacadeResponseDtoMapper.toOrderResponse(order);
-    orderResponse.setOrderProductList(orderProductList.stream().map(OrderFacadeResponseDtoMapper::toOrderProductResponse).toList());
+    orderResponse.setOrderProductList(order.getOrderProductList().stream().map(OrderFacadeResponseDtoMapper::toOrderProductResponse).toList());
     return orderResponse;
   }
 }

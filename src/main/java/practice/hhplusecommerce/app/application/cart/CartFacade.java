@@ -48,7 +48,6 @@ public class CartFacade {
     );
   }
 
-  @Transactional
   public CartFacadeResponseDto deleteCart(Long cartId, Long userId) {
     userService.getUser(userId);
     cartService.getCart(cartId);

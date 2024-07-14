@@ -3,6 +3,7 @@ package practice.hhplusecommerce.app.service.cart;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.app.domain.cart.Cart;
 import practice.hhplusecommerce.app.service.cart.dto.response.CartServiceResponseDto;
 import practice.hhplusecommerce.app.service.cart.dto.response.CartServiceResponseDtoMapper;
@@ -21,6 +22,7 @@ public class CartService {
         .toList();
   }
 
+  @Transactional
   public CartServiceResponseDto.Response getCart(Long cartId) {
     return CartServiceResponseDtoMapper.toResponse(
         cartRepository.findById(cartId)
@@ -32,6 +34,7 @@ public class CartService {
     return CartServiceResponseDtoMapper.toResponse(cartRepository.save(cart));
   }
 
+  @Transactional
   public CartServiceResponseDto.Response deleteCart(Long cartId) {
     Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("장바구니", true));
     cartRepository.delete(cart);

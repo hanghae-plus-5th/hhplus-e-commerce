@@ -23,11 +23,8 @@ import practice.hhplusecommerce.app.domain.order.OrderProduct;
 import practice.hhplusecommerce.app.domain.product.Product;
 import practice.hhplusecommerce.app.domain.user.User;
 import practice.hhplusecommerce.app.service.dataPlatform.DataPlatform;
-import practice.hhplusecommerce.app.service.order.OrderProductService;
 import practice.hhplusecommerce.app.service.order.OrderService;
 import practice.hhplusecommerce.app.service.product.ProductService;
-import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto;
-import practice.hhplusecommerce.app.service.product.dto.request.ProductServiceRequestDto.DeductionStock;
 import practice.hhplusecommerce.app.service.user.UserService;
 import practice.hhplusecommerce.global.exception.BadRequestException;
 import practice.hhplusecommerce.global.exception.NotFoundException;
@@ -46,9 +43,6 @@ public class OrderFacadeTest {
 
   @Mock
   OrderService orderService;
-
-  @Mock
-  OrderProductService orderProductService;
 
   @Mock
   DataPlatform dataPlatform;
@@ -84,15 +78,6 @@ public class OrderFacadeTest {
     List<Product> productList = List.of(new Product(1L, productName, productPrice, stock));
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
-    Order saveOrder = new Order(1L, productPrice, user);
-    when(orderService.createOrder(productPrice, user)).thenReturn(saveOrder);
-
-    List<OrderProduct> orderProductList = List.of(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
-
-    ProductServiceRequestDto.DeductionStock deductionStock = new DeductionStock();
-    deductionStock.setProductId(productId);
-    deductionStock.setDeductionStock(quantity);
-
     OrderFacadeRequestDto.Create create = new Create();
     create.setUserId(userId);
 
@@ -101,18 +86,20 @@ public class OrderFacadeTest {
     orderProductCreate.setQuantity(quantity);
     create.setProductList(List.of(orderProductCreate));
 
-    when(orderProductService.createOrderProduct(productList, create.getProductList(), saveOrder)).thenReturn(orderProductList);
-    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("OK 200");
+    Order saveOrder = new Order(1L, productPrice, user);
+    saveOrder.addOrderProduct(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
+    when(orderService.createOrder(productPrice, user, productList, create.getProductList())).thenReturn(saveOrder);
 
+    when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("OK 200");
     OrderResponse orderResponse = orderFacade.order(create);
 
     //then
     assertEquals(orderResponse.getId(), orderId);
     assertEquals(orderResponse.getOrderTotalPrice(), productPrice);
-    assertEquals(orderResponse.getOrderProductList().get(0).getId(), orderProductList.get(0).getId());
-    assertEquals(orderResponse.getOrderProductList().get(0).getName(), orderProductList.get(0).getName());
-    assertEquals(orderResponse.getOrderProductList().get(0).getQuantity(), orderProductList.get(0).getQuantity());
-    assertEquals(orderResponse.getOrderProductList().get(0).getPrice(), orderProductList.get(0).getPrice());
+    assertEquals(orderResponse.getOrderProductList().get(0).getId(), saveOrder.getOrderProductList().get(0).getId());
+    assertEquals(orderResponse.getOrderProductList().get(0).getName(), saveOrder.getOrderProductList().get(0).getName());
+    assertEquals(orderResponse.getOrderProductList().get(0).getQuantity(), saveOrder.getOrderProductList().get(0).getQuantity());
+    assertEquals(orderResponse.getOrderProductList().get(0).getPrice(), saveOrder.getOrderProductList().get(0).getPrice());
   }
 
   @Test
@@ -270,15 +257,6 @@ public class OrderFacadeTest {
     List<Product> productList = List.of(new Product(1L, productName, productPrice, stock));
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
-    Order saveOrder = new Order(1L, totalProductPrice, user);
-    when(orderService.createOrder(totalProductPrice, user)).thenReturn(saveOrder);
-
-    List<OrderProduct> orderProductList = List.of(new OrderProduct(orderProductId, productName, productPrice, quantity, saveOrder, productList.get(0)));
-
-    ProductServiceRequestDto.DeductionStock deductionStock = new DeductionStock();
-    deductionStock.setProductId(productId);
-    deductionStock.setDeductionStock(quantity);
-
     OrderFacadeRequestDto.Create create = new Create();
     create.setUserId(userId);
 
@@ -287,7 +265,9 @@ public class OrderFacadeTest {
     orderProductCreate.setQuantity(quantity);
     create.setProductList(List.of(orderProductCreate));
 
-    when(orderProductService.createOrderProduct(productList, create.getProductList(), saveOrder)).thenReturn(orderProductList);
+    Order saveOrder = new Order(1L, totalProductPrice, user);
+    when(orderService.createOrder(totalProductPrice, user, productList, create.getProductList())).thenReturn(saveOrder);
+
     when(dataPlatform.send(orderId, userId, totalProductPrice)).thenReturn("FAIL 500");
 
     try {
