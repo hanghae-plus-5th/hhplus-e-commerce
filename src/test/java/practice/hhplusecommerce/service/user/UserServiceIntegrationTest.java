@@ -14,7 +14,6 @@ import practice.hhplusecommerce.app.service.user.UserRepository;
 import practice.hhplusecommerce.app.service.user.UserService;
 import practice.hhplusecommerce.global.exception.NotFoundException;
 
-@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserServiceIntegrationTest {
 
