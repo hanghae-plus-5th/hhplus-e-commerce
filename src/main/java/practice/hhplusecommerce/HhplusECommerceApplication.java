@@ -11,5 +11,4 @@ public class HhplusECommerceApplication {
   public static void main(String[] args) {
     SpringApplication.run(HhplusECommerceApplication.class, args);
   }
-
 }
