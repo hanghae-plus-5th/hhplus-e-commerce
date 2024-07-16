@@ -13,8 +13,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
-import practice.hhplusecommerce.app.cart.presentation.CartController;
-import practice.hhplusecommerce.app.cart.presentation.dto.request.CartRequestDto.CartCreate;
+import practice.hhplusecommerce.cart.presentation.dto.request.CartRequestDto.CartCreate;
 
 @WebMvcTest(CartController.class)
 @MockBean(JpaMetamodelMappingContext.class)

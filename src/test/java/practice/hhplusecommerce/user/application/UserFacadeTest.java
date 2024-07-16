@@ -10,10 +10,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.user.application.UserFacade;
-import practice.hhplusecommerce.app.user.application.dto.UserFacadeDto;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.user.business.service.UserService;
+import practice.hhplusecommerce.user.application.dto.UserFacadeDto;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class UserFacadeTest {

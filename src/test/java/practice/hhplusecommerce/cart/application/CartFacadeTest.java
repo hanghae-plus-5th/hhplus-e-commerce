@@ -12,17 +12,16 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.cart.application.CartFacade;
-import practice.hhplusecommerce.app.cart.application.dto.requst.CartFacadeRequestDto;
-import practice.hhplusecommerce.app.cart.application.dto.response.CartFacadeResponseDto;
-import practice.hhplusecommerce.app.cart.business.dto.CartServiceResponseDto;
-import practice.hhplusecommerce.app.cart.business.dto.CartServiceResponseDto.Response;
-import practice.hhplusecommerce.app.cart.business.service.CartService;
-import practice.hhplusecommerce.app.common.exception.BadRequestException;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.product.business.service.ProductService;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.user.business.service.UserService;
+import practice.hhplusecommerce.cart.application.dto.requst.CartFacadeRequestDto;
+import practice.hhplusecommerce.cart.application.dto.response.CartFacadeResponseDto;
+import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto;
+import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto.Response;
+import practice.hhplusecommerce.cart.business.service.CartService;
+import practice.hhplusecommerce.common.exception.BadRequestException;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.product.business.service.ProductService;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class CartFacadeTest {

@@ -11,18 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import practice.hhplusecommerce.app.cart.application.CartFacade;
-import practice.hhplusecommerce.app.cart.application.dto.requst.CartFacadeRequestDto;
-import practice.hhplusecommerce.app.cart.application.dto.requst.CartFacadeRequestDto.Create;
-import practice.hhplusecommerce.app.cart.application.dto.response.CartFacadeResponseDto;
-import practice.hhplusecommerce.app.cart.business.entity.Cart;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.cart.business.repository.CartRepository;
-import practice.hhplusecommerce.app.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.app.user.business.service.UserRepository;
-import practice.hhplusecommerce.app.common.exception.BadRequestException;
-import practice.hhplusecommerce.app.common.exception.NotFoundException;
+import practice.hhplusecommerce.cart.application.dto.requst.CartFacadeRequestDto;
+import practice.hhplusecommerce.cart.application.dto.requst.CartFacadeRequestDto.Create;
+import practice.hhplusecommerce.cart.application.dto.response.CartFacadeResponseDto;
+import practice.hhplusecommerce.cart.business.entity.Cart;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.cart.business.repository.CartRepository;
+import practice.hhplusecommerce.product.business.repository.ProductRepository;
+import practice.hhplusecommerce.user.business.service.UserRepository;
+import practice.hhplusecommerce.common.exception.BadRequestException;
+import practice.hhplusecommerce.common.exception.NotFoundException;
 
 @Transactional
 @AutoConfigureMockMvc

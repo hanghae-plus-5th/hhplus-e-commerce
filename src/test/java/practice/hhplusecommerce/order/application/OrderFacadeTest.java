@@ -13,21 +13,20 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.common.exception.BadRequestException;
-import practice.hhplusecommerce.app.common.exception.NotFoundException;
-import practice.hhplusecommerce.app.order.application.OrderFacade;
-import practice.hhplusecommerce.app.order.application.dto.request.OrderFacadeRequestDto;
-import practice.hhplusecommerce.app.order.application.dto.request.OrderFacadeRequestDto.Create;
-import practice.hhplusecommerce.app.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
-import practice.hhplusecommerce.app.order.application.dto.response.OrderFacadeResponseDto.OrderResponse;
-import practice.hhplusecommerce.app.order.business.entity.Order;
-import practice.hhplusecommerce.app.order.business.entity.OrderProduct;
-import practice.hhplusecommerce.app.order.business.service.OrderService;
-import practice.hhplusecommerce.app.payment.infrastructure.dataPlatform.DataPlatform;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.product.business.service.ProductService;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.user.business.service.UserService;
+import practice.hhplusecommerce.common.exception.BadRequestException;
+import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto;
+import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
+import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
+import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto.OrderResponse;
+import practice.hhplusecommerce.order.business.entity.Order;
+import practice.hhplusecommerce.order.business.entity.OrderProduct;
+import practice.hhplusecommerce.order.business.service.OrderService;
+import practice.hhplusecommerce.payment.infrastructure.dataPlatform.DataPlatform;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.product.business.service.ProductService;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class OrderFacadeTest {

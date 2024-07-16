@@ -11,16 +11,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import practice.hhplusecommerce.app.order.business.entity.Order;
-import practice.hhplusecommerce.app.order.business.entity.OrderProduct;
-import practice.hhplusecommerce.app.order.business.repository.OrderProductRepository;
-import practice.hhplusecommerce.app.order.business.repository.OrderRepository;
-import practice.hhplusecommerce.app.product.application.ProductFacade;
-import practice.hhplusecommerce.app.product.application.dto.response.ProductFacadeResponseDto;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.user.business.service.UserRepository;
+import practice.hhplusecommerce.order.business.entity.Order;
+import practice.hhplusecommerce.order.business.entity.OrderProduct;
+import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
+import practice.hhplusecommerce.order.business.repository.OrderRepository;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.product.business.repository.ProductRepository;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.user.business.service.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional

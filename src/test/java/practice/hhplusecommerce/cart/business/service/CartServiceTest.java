@@ -14,14 +14,13 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.cart.business.dto.CartServiceResponseDto;
-import practice.hhplusecommerce.app.cart.business.dto.CartServiceResponseDto.Response;
-import practice.hhplusecommerce.app.cart.business.entity.Cart;
-import practice.hhplusecommerce.app.cart.business.repository.CartRepository;
-import practice.hhplusecommerce.app.cart.business.service.CartService;
-import practice.hhplusecommerce.app.common.exception.NotFoundException;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.user.business.entity.User;
+import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto;
+import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto.Response;
+import practice.hhplusecommerce.cart.business.entity.Cart;
+import practice.hhplusecommerce.cart.business.repository.CartRepository;
+import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.user.business.entity.User;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class CartServiceTest {

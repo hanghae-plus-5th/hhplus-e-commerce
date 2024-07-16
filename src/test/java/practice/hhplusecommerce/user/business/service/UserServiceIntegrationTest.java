@@ -8,10 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import practice.hhplusecommerce.app.user.business.entity.User;
-import practice.hhplusecommerce.app.user.business.service.UserRepository;
-import practice.hhplusecommerce.app.user.business.service.UserService;
-import practice.hhplusecommerce.app.common.exception.NotFoundException;
+import practice.hhplusecommerce.user.business.entity.User;
+import practice.hhplusecommerce.common.exception.NotFoundException;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserServiceIntegrationTest {

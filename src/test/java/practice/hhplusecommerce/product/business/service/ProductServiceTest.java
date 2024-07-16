@@ -15,10 +15,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.app.product.business.service.ProductService;
-import practice.hhplusecommerce.app.common.exception.NotFoundException;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.product.business.repository.ProductRepository;
+import practice.hhplusecommerce.common.exception.NotFoundException;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class ProductServiceTest {

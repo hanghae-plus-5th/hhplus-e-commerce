@@ -12,11 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import practice.hhplusecommerce.app.order.business.service.OrderService;
-import practice.hhplusecommerce.app.product.application.ProductFacade;
-import practice.hhplusecommerce.app.product.application.dto.response.ProductFacadeResponseDto;
-import practice.hhplusecommerce.app.product.business.entity.Product;
-import practice.hhplusecommerce.app.product.business.service.ProductService;
+import practice.hhplusecommerce.order.business.service.OrderService;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto;
+import practice.hhplusecommerce.product.business.entity.Product;
+import practice.hhplusecommerce.product.business.service.ProductService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class ProductFaçadeTest {
