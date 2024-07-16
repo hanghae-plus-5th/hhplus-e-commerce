@@ -18,7 +18,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.common.entity.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.common.baseEntity.BaseLocalDateTimeEntity;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 

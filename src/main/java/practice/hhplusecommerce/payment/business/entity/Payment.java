@@ -13,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Comment;
-import practice.hhplusecommerce.common.entity.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.common.baseEntity.BaseLocalDateTimeEntity;
 import practice.hhplusecommerce.order.business.entity.Order;
 
 @Getter

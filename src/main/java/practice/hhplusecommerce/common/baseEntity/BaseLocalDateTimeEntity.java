@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.common.entity;
+package practice.hhplusecommerce.common.baseEntity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
