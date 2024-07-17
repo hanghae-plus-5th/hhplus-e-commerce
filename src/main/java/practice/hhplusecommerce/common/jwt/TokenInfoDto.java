@@ -5,9 +5,11 @@ import lombok.Getter;
 @Getter
 public class TokenInfoDto {
 
-  private String useName;
+  private String userName;
+  private Long userId;
 
-  public TokenInfoDto(String useName) {
-    this.useName = useName;
+  public TokenInfoDto(String userName, Long userId) {
+    this.userName = userName;
+    this.userId = userId;
   }
 }

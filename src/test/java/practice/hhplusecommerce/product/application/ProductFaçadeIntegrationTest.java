@@ -19,7 +19,7 @@ import practice.hhplusecommerce.product.application.dto.response.ProductFacadeRe
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserRepository;
+import practice.hhplusecommerce.user.business.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional

@@ -3,8 +3,8 @@ package practice.hhplusecommerce.user.infrastruture;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import practice.hhplusecommerce.user.business.UserRepository;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserRepository;
 
 @Repository
 @RequiredArgsConstructor
@@ -20,5 +20,10 @@ public class UserRepositoryImpl implements UserRepository {
   @Override
   public User save(User user) {
     return userJpaRepository.save(user);
+  }
+
+  @Override
+  public Optional<User> findByName(String name) {
+    return userJpaRepository.findByName(name);
   }
 }

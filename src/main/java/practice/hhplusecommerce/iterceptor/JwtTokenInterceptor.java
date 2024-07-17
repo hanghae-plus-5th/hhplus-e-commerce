@@ -1,6 +1,7 @@
 package practice.hhplusecommerce.iterceptor;
 
-import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY;
+import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_USER_ID;
+import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_USER_NAME;
 import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.JWT_HEADER_KEY;
 
 import io.jsonwebtoken.Claims;
@@ -19,6 +20,7 @@ import practice.hhplusecommerce.common.jwt.TokenInfoDto;
 @RequiredArgsConstructor
 public class JwtTokenInterceptor implements HandlerInterceptor {
 
+  public final static String TOKEN_INFO  =  "tokenInfo";
   private final JwtTokenProvider jwtTokenProvider;
 
   @Override
@@ -34,8 +36,13 @@ public class JwtTokenInterceptor implements HandlerInterceptor {
 
     String accessToken = authorization.substring(7);
     Claims decodeToken = jwtTokenProvider.getClaimsFormToken(accessToken);
-    TokenInfoDto tokenInfo = new TokenInfoDto(decodeToken.get(CLAIMS_KEY).toString());
-    request.setAttribute(JWT_HEADER_KEY, tokenInfo);
+
+    TokenInfoDto tokenInfo = new TokenInfoDto(
+        decodeToken.get(CLAIMS_KEY_USER_NAME).toString(),
+        (Long) decodeToken.get(CLAIMS_KEY_USER_ID)
+    );
+
+    request.setAttribute(TOKEN_INFO, tokenInfo);
     return true;
   }
 }

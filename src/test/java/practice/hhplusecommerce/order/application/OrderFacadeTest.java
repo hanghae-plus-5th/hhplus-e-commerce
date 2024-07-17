@@ -26,7 +26,7 @@ import practice.hhplusecommerce.payment.infrastructure.dataPlatform.DataPlatform
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserService;
+import practice.hhplusecommerce.user.business.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class OrderFacadeTest {

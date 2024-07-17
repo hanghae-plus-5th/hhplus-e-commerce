@@ -1,6 +1,7 @@
 package practice.hhplusecommerce.cart.presentation;
 
-import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.JWT_HEADER_KEY;
+
+import static practice.hhplusecommerce.iterceptor.JwtTokenInterceptor.TOKEN_INFO;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,7 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -63,7 +64,7 @@ public class CartController {
   @ApiResponse(responseCode = "404", description = "유저정보가 존재하지 않습니다.")
   @DeleteMapping("/{cart-id}")
   public CartResponse delete(
-      @RequestAttribute(value = JWT_HEADER_KEY) TokenInfoDto tokenInfoDto,
+      @RequestAttribute(value = TOKEN_INFO) TokenInfoDto tokenInfoDto,
       @RequestParam("userId") Long userId,
       @PathVariable("cart-id") Long cartId
   ) {

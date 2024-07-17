@@ -19,7 +19,7 @@ import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.cart.business.repository.CartRepository;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.service.UserRepository;
+import practice.hhplusecommerce.user.business.UserRepository;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 

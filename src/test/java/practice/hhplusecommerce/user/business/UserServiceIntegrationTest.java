@@ -1,13 +1,19 @@
-package practice.hhplusecommerce.user.business.service;
+package practice.hhplusecommerce.user.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_USER_ID;
+import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_USER_NAME;
 
+import io.jsonwebtoken.Claims;
+import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import practice.hhplusecommerce.common.jwt.JwtTokenProvider;
+import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto.TokenResponse;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 
@@ -19,6 +25,9 @@ public class UserServiceIntegrationTest {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private JwtTokenProvider jwtTokenProvider;
 
 
   @Test
@@ -102,6 +111,68 @@ public class UserServiceIntegrationTest {
     assertNull(user);
     assertNotNull(e);
     assertEquals(e.getMessage(), "유저가 존재하지 않습니다.");
+  }
+
+  @Test
+  @Transactional
+  public void 유저로그인기능_유저토큰반환되는지_통합테스트() {
+    //given
+    String userName = "백현명";
+    int amount = 0;
+
+    //when
+    User user = new User(null, userName, amount);
+    User saveUser = userRepository.save(user);
+
+    TokenResponse login = userService.login(saveUser.getName());
+
+    Claims claimsFormToken = jwtTokenProvider.getClaimsFormToken(login.accessToken());
+
+    //then
+    assertEquals(login.id(), saveUser.getId());
+    assertEquals(login.name(), saveUser.getName());
+    assertEquals(login.amount(), saveUser.getAmount());
+    assertEquals(claimsFormToken.get(CLAIMS_KEY_USER_NAME).toString(), userName);
+    assertEquals(Long.valueOf(claimsFormToken.get(CLAIMS_KEY_USER_ID).toString()), saveUser.getId());
+  }
+
+  @Test
+  @Transactional
+  public void 유저로그인기능_유저정보없으면_에러반환하는지_통합테스트() {
+    //given
+    NotFoundException e = null;
+    TokenResponse response = null;
+
+    //when
+    try {
+      response = userService.login("백현명");
+    } catch (NotFoundException nfe) {
+      e = nfe;
+    }
+
+    //then
+    assertNull(response);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "유저가 존재하지 않습니다.");
+  }
+
+  @Test
+  @Transactional
+  public void 유저생성기능_유저장보저장되는지_통합테스트() {
+    //given
+    String userName = "백현명";
+    int amount = 0;
+
+    //when
+    User when = userService.saveUser(userName);
+
+    //then
+    User then = userRepository.findByName(userName).orElse(null);
+
+    assertNotNull(then);
+    assertEquals(then.getName(), when.getName());
+    assertEquals(then.getAmount(), when.getAmount());
+    assertEquals(then.getId(), when.getId());
   }
 
 //  @Test
