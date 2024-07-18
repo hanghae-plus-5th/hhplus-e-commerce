@@ -11,7 +11,6 @@ public class OrderFacadeRequestDto {
   @Setter
   public static class Create {
 
-    private Long userId;
     private List<OrderProductCreate> productList = new ArrayList<>();
   }
 

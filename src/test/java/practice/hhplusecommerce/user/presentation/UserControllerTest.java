@@ -18,7 +18,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import practice.hhplusecommerce.common.jwt.JwtTokenProvider;
 import practice.hhplusecommerce.common.jwt.TokenInfoDto;
 import practice.hhplusecommerce.iterceptor.JwtTokenInterceptor;
 import practice.hhplusecommerce.user.application.UserFacade;
@@ -28,7 +27,6 @@ import practice.hhplusecommerce.user.presentation.dto.UserRequestDto;
 
 @WebMvcTest(UserController.class)
 @MockBean(JpaMetamodelMappingContext.class)
-@MockBean(JwtTokenProvider.class) // 필요한 빈들을 MockBean으로 등록
 @MockBean(JwtTokenInterceptor.class)
 public class UserControllerTest {
 
@@ -40,9 +38,6 @@ public class UserControllerTest {
 
   @Autowired
   private ObjectMapper objectMapper;
-
-  @MockBean
-  private JwtTokenProvider jwtTokenProvider;
 
   @BeforeEach
   public void setup() {

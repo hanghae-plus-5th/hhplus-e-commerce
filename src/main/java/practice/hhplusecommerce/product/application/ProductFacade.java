@@ -3,6 +3,7 @@ package practice.hhplusecommerce.product.application;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.order.business.service.OrderService;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Top5ProductsLast3DaysResponse;

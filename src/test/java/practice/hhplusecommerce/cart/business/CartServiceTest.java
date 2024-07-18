@@ -3,6 +3,7 @@ package practice.hhplusecommerce.cart.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
@@ -130,10 +131,9 @@ public class CartServiceTest {
     //when
     User user = new User(userId, name, amount);
     Product product = new Product(productId, productName, productPrice, productStock);
-    Cart cart = new Cart(null, quantity, user, product);
-    //todo 해결하기
+
     Cart createdCart = new Cart(cartId, quantity, user, product);
-    when(cartRepository.save(cart)).thenReturn(createdCart);
+    when(cartRepository.save(any(Cart.class))).thenReturn(createdCart);
     Response when = cartService.createCart(quantity, user, product);
 
     //then

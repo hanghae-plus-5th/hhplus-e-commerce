@@ -10,7 +10,6 @@ public class CartFacadeRequestDto {
   @Setter
   public static class Create {
 
-    private Long userId;
     private Long productId;
     private Integer quantity;
   }

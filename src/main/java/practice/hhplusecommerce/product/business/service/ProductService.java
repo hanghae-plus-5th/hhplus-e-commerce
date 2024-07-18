@@ -21,12 +21,14 @@ public class ProductService {
     return productRepository.findAll();
   }
 
+  @Transactional
   public Product getProduct(Long productId) {
     return productRepository.findById(productId).orElseThrow(() -> {
       log.error("ProductService.getProduct productId : {}", productId);
       return new NotFoundException("상품", true);
     });
   }
+
 
   public List<Product> getProductListByProductIdList(List<Long> productIdList) {
     List<Product> productList = productRepository.findAllByIdIn(productIdList);

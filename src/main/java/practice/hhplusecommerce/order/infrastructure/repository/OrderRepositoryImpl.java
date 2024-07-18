@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.order.infrastructure;
+package practice.hhplusecommerce.order.infrastructure.repository;
 
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

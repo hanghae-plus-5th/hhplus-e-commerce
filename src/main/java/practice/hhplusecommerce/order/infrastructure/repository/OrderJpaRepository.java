@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.order.infrastructure;
+package practice.hhplusecommerce.order.infrastructure.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;

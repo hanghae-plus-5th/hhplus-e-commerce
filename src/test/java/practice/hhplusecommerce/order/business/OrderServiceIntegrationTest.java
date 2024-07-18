@@ -64,7 +64,6 @@ public class OrderServiceIntegrationTest {
     Product product = productRepository.save(new Product(null, productName, productPrice, stock));
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(user.getId());
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(product.getId());

@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.cart.presentation.dto.request;
+package practice.hhplusecommerce.cart.presentation.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -10,9 +10,6 @@ public class CartRequestDto {
   @Setter
   @Schema(name = "장바구니 생성 DTO")
   public static class CartCreate {
-
-    @Schema(description = "유저 고유 번호", defaultValue = "1")
-    private Long userId;
 
     @Schema(description = "상품 고유 번호", defaultValue = "1")
     private Long productId;

@@ -66,7 +66,7 @@ public class OrderServiceTest {
     List<Product> productList = List.of(new Product(1L, productName, productPrice, stock));
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
+
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);

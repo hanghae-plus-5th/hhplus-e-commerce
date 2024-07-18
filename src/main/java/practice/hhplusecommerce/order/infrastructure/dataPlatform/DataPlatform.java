@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.payment.infrastructure.dataPlatform;
+package practice.hhplusecommerce.order.infrastructure.dataPlatform;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

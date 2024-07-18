@@ -106,11 +106,10 @@ public class CartFacadeIntegrationTest {
     User saveUser = userRepository.save(user);
 
     CartFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setQuantity(quantity);
     create.setProductId(saveProduct.getId());
 
-    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(create);
+    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(saveUser.getId(), create);
     Cart cart = cartRepository.findById(cartFacadeResponseDto.id()).get();
 
     assertEquals(cartFacadeResponseDto.id(), cart.getId());
@@ -133,11 +132,10 @@ public class CartFacadeIntegrationTest {
     //when
     try {
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(0L);
       create.setQuantity(5);
       create.setProductId(0L);
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(0L, create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -160,11 +158,10 @@ public class CartFacadeIntegrationTest {
       User saveUser = userRepository.save(user);
 
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(saveUser.getId());
       create.setQuantity(5);
       create.setProductId(0L);
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(saveUser.getId(), create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -197,11 +194,10 @@ public class CartFacadeIntegrationTest {
       User saveUser = userRepository.save(user);
 
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(saveUser.getId());
       create.setQuantity(quantity);
       create.setProductId(saveProduct.getId());
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(saveUser.getId(), create);
     } catch (BadRequestException nfe) {
       e = nfe;
     }

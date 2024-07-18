@@ -63,7 +63,6 @@ public class OrderServiceIntegrationTestTest {
     }
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     for (Product product : saveProductList) {
@@ -73,7 +72,7 @@ public class OrderServiceIntegrationTestTest {
       create.getProductList().add(orderProductCreate);
     }
 
-    OrderResponse order = orderFacade.order(create);
+    OrderResponse order = orderFacade.order(saveUser.getId(), create);
 
     List<OrderProduct> orderProductList = orderProductRepository.findAllByOrderId(order.getId());
 
@@ -104,7 +103,6 @@ public class OrderServiceIntegrationTestTest {
     User saveUser = userRepository.save(user);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
@@ -113,7 +111,7 @@ public class OrderServiceIntegrationTestTest {
     create.getProductList().add(orderProductCreate);
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(saveUser.getId(), create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -132,11 +130,10 @@ public class OrderServiceIntegrationTestTest {
 
     //when
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(0L);
     create.setProductList(new ArrayList<>());
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(-1L, create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -174,7 +171,6 @@ public class OrderServiceIntegrationTestTest {
     }
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     for (Product product : saveProductList) {
@@ -185,7 +181,7 @@ public class OrderServiceIntegrationTestTest {
     }
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(saveUser.getId(), create);
     } catch (BadRequestException bre) {
       e = bre;
     }
@@ -222,7 +218,6 @@ public class OrderServiceIntegrationTestTest {
     }
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     for (Product product : saveProductList) {
@@ -233,7 +228,7 @@ public class OrderServiceIntegrationTestTest {
     }
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(saveUser.getId(), create);
     } catch (BadRequestException bre) {
       e = bre;
     }
@@ -269,7 +264,6 @@ public class OrderServiceIntegrationTestTest {
     }
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     for (Product product : saveProductList) {
@@ -279,7 +273,7 @@ public class OrderServiceIntegrationTestTest {
       create.getProductList().add(orderProductCreate);
     }
 
-    orderFacade.order(create);
+    orderFacade.order(saveUser.getId(), create);
 
     //then
     for (Product product : saveProductList) {
@@ -311,7 +305,6 @@ public class OrderServiceIntegrationTestTest {
     }
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setProductList(new ArrayList<>());
 
     for (Product product : saveProductList) {
@@ -321,7 +314,7 @@ public class OrderServiceIntegrationTestTest {
       create.getProductList().add(orderProductCreate);
     }
 
-    orderFacade.order(create);
+    orderFacade.order(saveUser.getId(), create);
 
     //then
     assertEquals(saveUser.getAmount(), amount - ((price1 * quantity) + (price2 * quantity)));
