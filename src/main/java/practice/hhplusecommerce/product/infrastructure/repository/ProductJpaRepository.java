@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.product.infrastructure;
+package practice.hhplusecommerce.product.infrastructure.repository;
 
 import jakarta.persistence.LockModeType;
 import java.util.List;

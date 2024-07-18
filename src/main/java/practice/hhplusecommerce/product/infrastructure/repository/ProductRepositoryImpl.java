@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.product.infrastructure;
+package practice.hhplusecommerce.product.infrastructure.repository;
 
 import java.util.List;
 import java.util.Optional;
