@@ -24,7 +24,6 @@ import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 
 @Transactional
-@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CartFacadeIntegrationTest {
 

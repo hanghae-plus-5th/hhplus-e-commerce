@@ -4,11 +4,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import practice.hhplusecommerce.order.business.service.OrderService;
-import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDtoMapper;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Top5ProductsLast3DaysResponse;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDtoMapper;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
-import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +23,10 @@ public class ProductFacade {
         .stream()
         .map(ProductFacadeResponseDtoMapper::toProductFacadeDto)
         .toList();
+  }
+
+  public Response getProduct(Long productId) {
+    return ProductFacadeResponseDtoMapper.toProductFacadeDto(productService.getProduct(productId));
   }
 
   public List<Top5ProductsLast3DaysResponse> getTop5ProductsLast3Days() {

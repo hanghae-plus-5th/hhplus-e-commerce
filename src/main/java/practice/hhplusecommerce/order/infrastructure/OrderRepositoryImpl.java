@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.order.infrastructure;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import practice.hhplusecommerce.order.business.entity.Order;
@@ -14,5 +15,10 @@ public class OrderRepositoryImpl implements OrderRepository {
   @Override
   public Order save(Order order) {
     return orderJpaRepository.save(order);
+  }
+
+  @Override
+  public Optional<Order> findById(Long id) {
+    return orderJpaRepository.findById(id);
   }
 }

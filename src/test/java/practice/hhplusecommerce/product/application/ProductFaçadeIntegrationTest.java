@@ -1,6 +1,8 @@
 package practice.hhplusecommerce.product.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,18 +13,20 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
 import practice.hhplusecommerce.order.business.repository.OrderRepository;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.entity.User;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductFaçadeIntegrationTest {
 
   @Autowired
@@ -52,8 +56,10 @@ public class ProductFaçadeIntegrationTest {
         new Product(null, "꽃병5", 1500, 5)
     );
 
-    productRepository.saveAll(productList);
-    List<Product> givenList = productRepository.findAll();
+    List<Product> givenList = new ArrayList<>();
+    for (Product product : productList) {
+      givenList.add(productRepository.save(product));
+    }
 
     //when
     List<ProductFacadeResponseDto.Response> whenList = productFacade.getProductList();
@@ -68,7 +74,41 @@ public class ProductFaçadeIntegrationTest {
   }
 
   @Test
-  public void 상위상품목록조회기능_조회된순서와_sortedEntries객체의_랭킹이맞는지_통합테스트() {
+  public void 상품상세조회기능_성공_통합테스트() {
+    //given
+    Product product = new Product(null, "꽃병1", 1500, 5);
+    Product given = productRepository.save(product);
+
+    //when
+    Response when = productFacade.getProduct(product.getId());
+
+    assertEquals(given.getId(), when.getId());
+    assertEquals(given.getName(), when.getName());
+    assertEquals(given.getPrice(), when.getPrice());
+    assertEquals(given.getStock(), when.getStock());
+  }
+
+  @Test
+  public void 상품상세조회기능_상품없을시_에러반환_통합테스트() {
+    //given
+    NotFoundException e = null;
+    Response when = null;
+
+    //when
+    try {
+      when = productFacade.getProduct(-0L);
+    } catch (NotFoundException nfe) {
+        e = nfe;
+    }
+
+    //then
+    assertNull(when);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "상품이 존재하지 않습니다.");
+  }
+
+  @Test
+  public void 상위상품목록조회기능_조회된순서와_sortedEntries객체의_순서가_맞는지_통합테스트() {
     //given
     Map<Long, Integer> given = new HashMap<>();
 

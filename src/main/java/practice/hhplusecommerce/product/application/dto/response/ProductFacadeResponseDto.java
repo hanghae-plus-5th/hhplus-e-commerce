@@ -1,12 +1,14 @@
 package practice.hhplusecommerce.product.application.dto.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class ProductFacadeResponseDto {
 
   @Getter
   @Setter
+  @NoArgsConstructor
   public static class Top5ProductsLast3DaysResponse {
 
     private Long productId;
@@ -14,6 +16,14 @@ public class ProductFacadeResponseDto {
     private Integer productPrice;
     private Integer productStock;
     private Long sumQuantity;
+
+    public Top5ProductsLast3DaysResponse(Long productId, String productName, Integer productPrice, Integer productStock, Long sumQuantity) {
+      this.productId = productId;
+      this.productName = productName;
+      this.productPrice = productPrice;
+      this.productStock = productStock;
+      this.sumQuantity = sumQuantity;
+    }
   }
 
   @Getter

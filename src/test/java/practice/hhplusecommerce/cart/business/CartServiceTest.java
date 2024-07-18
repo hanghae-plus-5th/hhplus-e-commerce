@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.cart.business.service;
+package practice.hhplusecommerce.cart.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -18,6 +18,7 @@ import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto;
 import practice.hhplusecommerce.cart.business.dto.CartServiceResponseDto.Response;
 import practice.hhplusecommerce.cart.business.entity.Cart;
 import practice.hhplusecommerce.cart.business.repository.CartRepository;
+import practice.hhplusecommerce.cart.business.service.CartService;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;

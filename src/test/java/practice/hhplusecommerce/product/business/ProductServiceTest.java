@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.product.business.service;
+package practice.hhplusecommerce.product.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,6 +19,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.product.business.service.ProductService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class ProductServiceTest {
@@ -55,7 +57,8 @@ public class ProductServiceTest {
   }
 
   @Test
-  public void 상품조회기능_상품조회되는지_테스트() {
+  @DisplayName("상품상세조회 API 성공테스트")
+  public void 상품상세조회기능_상품조회되는지_테스트() {
     //given
     Long productId = 1L;
     String productName = "꽃병";
@@ -76,7 +79,7 @@ public class ProductServiceTest {
   }
 
   @Test
-  public void 상품조회기능_유저존재하지않을시_에러반환하는지_테스트() {
+  public void 상품조회기능_상품존재하지않을시_에러반환하는지_테스트() {
     //given
     Long productId = 1L;
 

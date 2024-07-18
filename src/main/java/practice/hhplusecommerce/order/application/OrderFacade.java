@@ -29,6 +29,9 @@ public class OrderFacade {
   private final ProductService productService;
   private final DataPlatform dataPlatform;
 
+  /**
+   * 주문과 결제가 동시에 진행됩니다.
+   * */
   @Transactional
   public OrderResponse order(Create create) {
     User user = userService.getUser(create.getUserId());
