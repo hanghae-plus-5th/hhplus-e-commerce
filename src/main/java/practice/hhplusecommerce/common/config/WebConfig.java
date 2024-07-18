@@ -25,7 +25,7 @@ public class WebConfig implements WebMvcConfigurer {
       "/api-docs/swagger-config",
       "/api-docs",
       "/api/user/login",
-      "/api-docs/join",
+      "/api/user/join",
   };
 
   @Bean
