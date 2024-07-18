@@ -12,15 +12,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Comment;
 import practice.hhplusecommerce.common.baseEntity.BaseLocalDateTimeEntity;
+import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.common.exception.BadRequestException;
 
 @Getter
 @Entity
 @NoArgsConstructor
+@Slf4j
 public class Cart extends BaseLocalDateTimeEntity {
 
   @Id

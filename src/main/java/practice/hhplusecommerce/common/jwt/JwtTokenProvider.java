@@ -48,12 +48,12 @@ public class JwtTokenProvider {
 
     try {
       getClaimsFormToken(token);
-      log.info("isValidAccessToken.accessToken : " + token);
+      log.error("isValidAccessToken.accessToken : " + token);
     } catch (ExpiredJwtException exception) {
-      log.info("isValidAccessToken.ExpiredJwtException : " + exception.getMessage());
+      log.error("isValidAccessToken.ExpiredJwtException : " + exception.getMessage());
       throw new ExpiredJwtException(exception.getHeader(), exception.getClaims(), exception.getMessage());
     } catch (JwtException exception) {
-      log.info("isValidAccessToken.JwtException : " + exception.getMessage());
+      log.error("isValidAccessToken.JwtException : " + exception.getMessage());
       throw new JwtException(exception.getMessage());
     }
     return true;
@@ -68,14 +68,15 @@ public class JwtTokenProvider {
   }
 
   public boolean isBearerToken(String authorization) {
-
     String accessToken = authorization.substring(7);
 
     if (!authorization.startsWith(BEARER)) {
+      log.error("isBearerToken authorization : {} : ", authorization);
       throw new IllegalArgumentException("Bearer 를 붙혀주세요.");
     }
 
     if (!isValidAccessToken(accessToken)) {
+      log.error("isBearerToken authorization : {} : ", authorization);
       throw new IllegalArgumentException("유효하지 않은 않은 토큰입니다.");
     }
 

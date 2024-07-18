@@ -2,6 +2,7 @@ package practice.hhplusecommerce.cart.business.service;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.cart.business.entity.Cart;
@@ -13,6 +14,7 @@ import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class CartService {
 
@@ -29,7 +31,10 @@ public class CartService {
   public CartServiceResponseDto.Response getCart(Long cartId) {
     return CartServiceResponseDtoMapper.toResponse(
         cartRepository.findById(cartId)
-            .orElseThrow(() -> new NotFoundException("장바구니", true))
+            .orElseThrow(() -> {
+              log.error("CartService.getCart parameter cartId : {}", cartId);
+              return new NotFoundException("장바구니", true);
+            })
     );
   }
 
@@ -40,7 +45,10 @@ public class CartService {
 
   @Transactional
   public CartServiceResponseDto.Response deleteCart(Long cartId) {
-    Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException("장바구니", true));
+    Cart cart = cartRepository.findById(cartId).orElseThrow(() -> {
+      log.error("CartService.deleteCart parameter cartId : {}", cartId);
+      return new NotFoundException("장바구니", true);
+    });
     cartRepository.delete(cart);
     return CartServiceResponseDtoMapper.toResponse(cart);
   }
