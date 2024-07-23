@@ -22,11 +22,11 @@ import practice.hhplusecommerce.order.application.dto.response.OrderFacadeRespon
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.service.OrderService;
-import practice.hhplusecommerce.payment.infrastructure.dataPlatform.DataPlatform;
+import practice.hhplusecommerce.order.infrastructure.dataPlatform.DataPlatform;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserService;
+import practice.hhplusecommerce.user.business.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class OrderFacadeTest {
@@ -78,7 +78,6 @@ public class OrderFacadeTest {
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);
@@ -90,7 +89,7 @@ public class OrderFacadeTest {
     when(orderService.createOrder(productPrice, user, productList, create.getProductList())).thenReturn(saveOrder);
 
     when(dataPlatform.send(orderId, userId, productPrice)).thenReturn("OK 200");
-    OrderResponse orderResponse = orderFacade.order(create);
+    OrderResponse orderResponse = orderFacade.order(userId, create);
 
     //then
     assertEquals(orderResponse.getId(), orderId);
@@ -122,7 +121,7 @@ public class OrderFacadeTest {
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
+
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);
@@ -130,7 +129,7 @@ public class OrderFacadeTest {
     create.setProductList(List.of(orderProductCreate));
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(userId, create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -165,7 +164,7 @@ public class OrderFacadeTest {
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
+
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);
@@ -173,7 +172,7 @@ public class OrderFacadeTest {
     create.setProductList(List.of(orderProductCreate));
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(userId, create);
     } catch (BadRequestException bre) {
       e = bre;
     }
@@ -208,7 +207,7 @@ public class OrderFacadeTest {
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
+
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);
@@ -216,7 +215,7 @@ public class OrderFacadeTest {
     create.setProductList(List.of(orderProductCreate));
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(userId, create);
     } catch (BadRequestException bre) {
       e = bre;
     }
@@ -257,7 +256,7 @@ public class OrderFacadeTest {
     when(productService.getProductListByProductIdList(List.of(productId))).thenReturn(productList);
 
     OrderFacadeRequestDto.Create create = new Create();
-    create.setUserId(userId);
+
 
     OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
     orderProductCreate.setId(productId);
@@ -270,7 +269,7 @@ public class OrderFacadeTest {
     when(dataPlatform.send(orderId, userId, totalProductPrice)).thenReturn("FAIL 500");
 
     try {
-      orderResponse = orderFacade.order(create);
+      orderResponse = orderFacade.order(userId, create);
     } catch (BadRequestException bre) {
       e = bre;
     }

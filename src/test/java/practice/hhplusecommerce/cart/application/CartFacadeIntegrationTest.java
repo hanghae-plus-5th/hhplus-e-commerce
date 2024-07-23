@@ -19,12 +19,11 @@ import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.cart.business.repository.CartRepository;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.service.UserRepository;
+import practice.hhplusecommerce.user.business.UserRepository;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 
 @Transactional
-@AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CartFacadeIntegrationTest {
 
@@ -107,11 +106,10 @@ public class CartFacadeIntegrationTest {
     User saveUser = userRepository.save(user);
 
     CartFacadeRequestDto.Create create = new Create();
-    create.setUserId(saveUser.getId());
     create.setQuantity(quantity);
     create.setProductId(saveProduct.getId());
 
-    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(create);
+    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(saveUser.getId(), create);
     Cart cart = cartRepository.findById(cartFacadeResponseDto.id()).get();
 
     assertEquals(cartFacadeResponseDto.id(), cart.getId());
@@ -134,11 +132,10 @@ public class CartFacadeIntegrationTest {
     //when
     try {
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(0L);
       create.setQuantity(5);
       create.setProductId(0L);
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(0L, create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -161,11 +158,10 @@ public class CartFacadeIntegrationTest {
       User saveUser = userRepository.save(user);
 
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(saveUser.getId());
       create.setQuantity(5);
       create.setProductId(0L);
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(saveUser.getId(), create);
     } catch (NotFoundException nfe) {
       e = nfe;
     }
@@ -198,11 +194,10 @@ public class CartFacadeIntegrationTest {
       User saveUser = userRepository.save(user);
 
       CartFacadeRequestDto.Create create = new Create();
-      create.setUserId(saveUser.getId());
       create.setQuantity(quantity);
       create.setProductId(saveProduct.getId());
 
-      when = cartFacade.addCart(create);
+      when = cartFacade.addCart(saveUser.getId(), create);
     } catch (BadRequestException nfe) {
       e = nfe;
     }

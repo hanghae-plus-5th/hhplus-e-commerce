@@ -22,7 +22,8 @@ public class JwtTokenProvider {
 
   public final static String JWT_HEADER_KEY = "Authorization";
   public final static String BEARER = "Bearer ";
-  public final static String CLAIMS_KEY = "username";
+  public final static String CLAIMS_KEY_USER_NAME = "username";
+  public final static String CLAIMS_KEY_USER_ID = "userId";
 
   private static final Long TokenValidTime = 1000L * 60;  //1분
 
@@ -31,9 +32,10 @@ public class JwtTokenProvider {
     SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
   }
 
-  public String createAccessToken(String username) {
+  public String createAccessToken(String username, Long userId) {
     Claims claims = Jwts.claims();//.setSubject(userPk); // JWT payload 에 저장되는 정보단위
-    claims.put(CLAIMS_KEY, username);
+    claims.put(CLAIMS_KEY_USER_NAME, username);
+    claims.put(CLAIMS_KEY_USER_ID, userId);
     Date now = new Date();
     return Jwts.builder()
         .setClaims(claims) // 정보 저장

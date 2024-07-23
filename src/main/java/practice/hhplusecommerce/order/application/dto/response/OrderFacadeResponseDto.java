@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.order.application.dto.response;
 
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ public class OrderFacadeResponseDto {
 
     private Long id;
     private Integer orderTotalPrice;
-    private List<OrderFacadeResponseDto.OrderProductResponse> orderProductList;
+    private List<OrderFacadeResponseDto.OrderProductResponse> orderProductList = new ArrayList<>();
   }
 
   @Getter

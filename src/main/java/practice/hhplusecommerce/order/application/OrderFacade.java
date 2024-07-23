@@ -13,11 +13,11 @@ import practice.hhplusecommerce.order.application.dto.response.OrderFacadeRespon
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDtoMapper;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.service.OrderService;
-import practice.hhplusecommerce.payment.infrastructure.dataPlatform.DataPlatform;
+import practice.hhplusecommerce.order.infrastructure.dataPlatform.DataPlatform;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserService;
+import practice.hhplusecommerce.user.business.UserService;
 
 @Component
 @RequiredArgsConstructor
@@ -29,9 +29,12 @@ public class OrderFacade {
   private final ProductService productService;
   private final DataPlatform dataPlatform;
 
+  /**
+   * 주문과 결제가 같이 진행됩니다.
+   * */
   @Transactional
-  public OrderResponse order(Create create) {
-    User user = userService.getUser(create.getUserId());
+  public OrderResponse order(Long userId, Create create) {
+    User user = userService.getUser(userId);
     List<Product> productList = productService.getProductListByProductIdList(create.getProductList().stream().map(OrderProductCreate::getId).toList());
 
     if (productList.size() != create.getProductList().size()) {
@@ -55,6 +58,10 @@ public class OrderFacade {
     user.validBuyPossible(totalProductPrice);
 
     Order order = orderService.createOrder(totalProductPrice, user, productList, create.getProductList());
+
+    /**
+     * 유저 잔액 차감
+     * */
     user.decreaseAmount(totalProductPrice);
 
     String status = dataPlatform.send(order.getId(), order.getUser().getId(), order.getOrderTotalPrice());

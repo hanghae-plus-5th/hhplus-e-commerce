@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.user.business.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,11 @@ public class User extends BaseLocalDateTimeEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  /**
+   * 간단하게 유저명으로 회원가입
+   * */
   @NotNull
+  @Column(unique = true)
   @Comment("유저명")
   private String name;
 

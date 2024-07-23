@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import practice.hhplusecommerce.common.jwt.JwtTokenProvider;
 import practice.hhplusecommerce.filter.RequestResponseLoggingFilter;
 import practice.hhplusecommerce.iterceptor.JwtTokenInterceptor;
 
@@ -23,6 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
       "/swagger-ui/swagger-initializer.js",
       "/api-docs/swagger-config",
       "/api-docs",
+      "/api/user/login",
+      "/api/user/join",
   };
 
   @Bean

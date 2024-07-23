@@ -9,9 +9,9 @@ import practice.hhplusecommerce.cart.application.dto.response.CartFacadeResponse
 import practice.hhplusecommerce.cart.application.dto.response.CartFacadeResponseDtoMapper;
 import practice.hhplusecommerce.cart.business.service.CartService;
 import practice.hhplusecommerce.product.business.entity.Product;
-import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.product.business.service.ProductService;
-import practice.hhplusecommerce.user.business.service.UserService;
+import practice.hhplusecommerce.user.business.UserService;
+import practice.hhplusecommerce.user.business.entity.User;
 
 @Component
 @RequiredArgsConstructor
@@ -31,8 +31,8 @@ public class CartFacade {
   }
 
   @Transactional
-  public CartFacadeResponseDto addCart(Create create) {
-    User user = userService.getUser(create.getUserId());
+  public CartFacadeResponseDto addCart(Long userId, Create create) {
+    User user = userService.getUser(userId);
     Product product = productService.getProduct(create.getProductId());
     product.validSalesPossible(create.getQuantity());
 

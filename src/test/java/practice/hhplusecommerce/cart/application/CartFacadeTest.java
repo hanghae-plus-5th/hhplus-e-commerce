@@ -21,7 +21,7 @@ import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.service.UserService;
+import practice.hhplusecommerce.user.business.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class CartFacadeTest {
@@ -115,8 +115,7 @@ public class CartFacadeTest {
     CartFacadeRequestDto.Create create = new CartFacadeRequestDto.Create();
     create.setQuantity(quantity);
     create.setProductId(productId);
-    create.setUserId(userId);
-    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(create);
+    CartFacadeResponseDto cartFacadeResponseDto = cartFacade.addCart(userId, create);
 
     //then
     assertEquals(cartFacadeResponseDto.id(), cartId);
@@ -160,12 +159,11 @@ public class CartFacadeTest {
     CartFacadeRequestDto.Create create = new CartFacadeRequestDto.Create();
     create.setQuantity(quantity);
     create.setProductId(productId);
-    create.setUserId(userId);
 
     BadRequestException badRequestException = null;
     CartFacadeResponseDto cartFacadeResponseDto = null;
     try {
-      cartFacadeResponseDto = cartFacade.addCart(create);
+      cartFacadeResponseDto = cartFacade.addCart(userId, create);
     } catch (BadRequestException e) {
       badRequestException = e;
     }

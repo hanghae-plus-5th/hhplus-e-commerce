@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import practice.hhplusecommerce.user.business.UserRepository;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 
