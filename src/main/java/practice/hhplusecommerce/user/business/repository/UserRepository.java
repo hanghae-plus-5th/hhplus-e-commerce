@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.user.business;
+package practice.hhplusecommerce.user.business.repository;
 
 import java.util.Optional;
 import practice.hhplusecommerce.user.business.entity.User;
@@ -9,5 +9,5 @@ public interface UserRepository {
 
   User save(User user);
 
- Optional<User> findByName(String name);
+  Optional<User> findByName(String name);
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import practice.hhplusecommerce.user.application.dto.UserFacadeDtoResponseMapper;
 import practice.hhplusecommerce.user.application.dto.UserFacadeResponseDto;
-import practice.hhplusecommerce.user.business.UserService;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @Component
 @RequiredArgsConstructor

@@ -21,7 +21,7 @@ import practice.hhplusecommerce.order.business.repository.OrderProductRepository
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional

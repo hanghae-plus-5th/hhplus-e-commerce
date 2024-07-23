@@ -23,7 +23,7 @@ import practice.hhplusecommerce.order.business.repository.OrderRepository;
 import practice.hhplusecommerce.order.business.service.OrderService;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
 import practice.hhplusecommerce.user.business.entity.User;
 
 @Transactional

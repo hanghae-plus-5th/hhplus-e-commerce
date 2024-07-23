@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.cart.application.dto.requst.CartFacadeRequestDto;
@@ -19,7 +18,7 @@ import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.cart.business.repository.CartRepository;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 

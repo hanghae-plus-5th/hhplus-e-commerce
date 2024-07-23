@@ -22,7 +22,7 @@ import practice.hhplusecommerce.product.application.dto.response.ProductFacadeRe
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
 import practice.hhplusecommerce.user.business.entity.User;
 
 @Transactional

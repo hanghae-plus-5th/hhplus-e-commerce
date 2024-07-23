@@ -3,7 +3,7 @@ package practice.hhplusecommerce.user.infrastruture.repository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import practice.hhplusecommerce.user.business.UserRepository;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
 import practice.hhplusecommerce.user.business.entity.User;
 
 @Repository

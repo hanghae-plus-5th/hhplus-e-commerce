@@ -10,7 +10,7 @@ import practice.hhplusecommerce.cart.application.dto.response.CartFacadeResponse
 import practice.hhplusecommerce.cart.business.service.CartService;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
-import practice.hhplusecommerce.user.business.UserService;
+import practice.hhplusecommerce.user.business.service.UserService;
 import practice.hhplusecommerce.user.business.entity.User;
 
 @Component

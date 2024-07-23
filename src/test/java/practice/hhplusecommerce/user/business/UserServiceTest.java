@@ -20,6 +20,8 @@ import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto.TokenRe
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class UserServiceTest {

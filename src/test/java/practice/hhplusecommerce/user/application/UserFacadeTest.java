@@ -16,7 +16,7 @@ import practice.hhplusecommerce.user.application.dto.UserFacadeResponseDto.ToKen
 import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto;
 import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto.TokenResponse;
 import practice.hhplusecommerce.user.business.entity.User;
-import practice.hhplusecommerce.user.business.UserService;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @MockBean(JpaMetamodelMappingContext.class)
 public class UserFacadeTest {

@@ -7,7 +7,6 @@ import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_US
 import static practice.hhplusecommerce.common.jwt.JwtTokenProvider.CLAIMS_KEY_USER_NAME;
 
 import io.jsonwebtoken.Claims;
-import java.util.concurrent.CompletableFuture;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +15,8 @@ import practice.hhplusecommerce.common.jwt.JwtTokenProvider;
 import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto.TokenResponse;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.user.business.repository.UserRepository;
+import practice.hhplusecommerce.user.business.service.UserService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserServiceIntegrationTest {
