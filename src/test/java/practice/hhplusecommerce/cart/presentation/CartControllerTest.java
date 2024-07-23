@@ -11,7 +11,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static practice.hhplusecommerce.iterceptor.JwtTokenInterceptor.TOKEN_INFO;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
