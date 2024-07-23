@@ -25,7 +25,7 @@ import practice.hhplusecommerce.user.business.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
-public class OrderServiceIntegrationTestTest {
+public class OrderFacadeIntegrationTest {
 
   @Autowired
   private UserRepository userRepository;
