@@ -2,6 +2,7 @@ package practice.hhplusecommerce.order.application;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.BadRequestException;
@@ -20,6 +21,7 @@ import practice.hhplusecommerce.user.business.service.UserService;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class OrderFacade {
 
   private final OrderService orderService;
@@ -33,6 +35,7 @@ public class OrderFacade {
     List<Product> productList = productService.getProductListByProductIdList(create.getProductList().stream().map(OrderProductCreate::getId).toList());
 
     if (productList.size() != create.getProductList().size()) {
+      log.error("OrderFacade.order  productList.size() {}, create.getProductList().size(), {}: ", productList.size(), create.getProductList().size());
       throw new NotFoundException("상품", true);
     }
 
@@ -56,6 +59,7 @@ public class OrderFacade {
 
     String status = dataPlatform.send(order.getId(), order.getUser().getId(), order.getOrderTotalPrice());
     if (!status.equals("OK 200")) {
+      log.error("OrderFacade.order status : {}", status);
       throw new BadRequestException("주문정보를 데이처플랫폼에 전송 실패했습니다.");
     }
 

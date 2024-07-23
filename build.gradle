@@ -38,6 +38,9 @@ dependencies {
 
     //JSONObject
     implementation 'net.sf.json-lib:json-lib:2.4:jdk15'
+
+    //jwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 }
 
 tasks.named('test') {
