@@ -12,4 +12,9 @@ public class TransactionalHandler {
   public <T> T runWithTransaction(Supplier<T> supplier) {
     return supplier.get();
   }
+
+  @Transactional
+  public void runWithTransaction(Runnable runnable) {
+     runnable.run();
+  }
 }
