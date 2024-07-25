@@ -26,4 +26,14 @@ public class UserRepositoryImpl implements UserRepository {
   public Optional<User> findByName(String name) {
     return userJpaRepository.findByName(name);
   }
+
+  @Override
+  public void delete(User user) {
+    userJpaRepository.delete(user);
+  }
+
+  @Override
+  public Optional<User> findByIdPessimisticLock(Long userId) {
+    return userJpaRepository.findByIdPessimisticLock(userId);
+  }
 }
