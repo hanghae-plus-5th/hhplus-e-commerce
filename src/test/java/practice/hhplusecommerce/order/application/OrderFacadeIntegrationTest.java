@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,15 +18,16 @@ import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequest
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto.OrderResponse;
+import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
+import practice.hhplusecommerce.order.business.repository.OrderRepository;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.user.business.repository.UserRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional
 public class OrderFacadeIntegrationTest {
 
   @Autowired
@@ -34,12 +37,16 @@ public class OrderFacadeIntegrationTest {
   private ProductRepository productRepository;
 
   @Autowired
+  private OrderRepository orderRepository;
+
+  @Autowired
   private OrderFacade orderFacade;
 
   @Autowired
   private OrderProductRepository orderProductRepository;
 
   @Test
+  @Transactional
   public void 주문기능_주문되는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -90,6 +97,7 @@ public class OrderFacadeIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 주문기능_상품이존재하지않을경우_에러반환하는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -123,6 +131,7 @@ public class OrderFacadeIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 주문기능_유저가존재하지않을경우_에러반환하는지_통합테스트() {
     //given
     OrderResponse orderResponse = null;
@@ -146,6 +155,7 @@ public class OrderFacadeIntegrationTest {
 
 
   @Test
+  @Transactional
   public void 주문기능_상품재고가부족할경우_에러반환하는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -193,6 +203,7 @@ public class OrderFacadeIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 주문기능_유저의잔액이부족할경우_에러반환하는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -240,6 +251,7 @@ public class OrderFacadeIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 주문기능_주문완료후재고가차감되었는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -282,6 +294,7 @@ public class OrderFacadeIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 주문기능_유저잔액차감되었는지_통합테스트() {
     //given
     String userName = "백현명";
@@ -318,5 +331,62 @@ public class OrderFacadeIntegrationTest {
 
     //then
     assertEquals(saveUser.getAmount(), amount - ((price1 * quantity) + (price2 * quantity)));
+  }
+
+  @Test
+  public void 주문기능_동시성_비관락_통합테스트() {
+    //given
+    String userName = "백현명";
+    int amount = 2146999999;
+    int price = 500;
+    int quantity = 2;
+    int stock1 = 10000;
+    int max = 1000;
+    User saveUser = userRepository.save(new User(null, userName, amount));
+
+    List<Product> productList = List.of(
+        new Product(null, "꽃병1", price, stock1),
+        new Product(null, "꽃병2", price, stock1)
+    );
+
+    List<Product> saveProductList = new ArrayList<>();
+    for (Product product : productList) {
+      saveProductList.add(productRepository.save(product));
+    }
+
+    OrderFacadeRequestDto.Create create = new Create();
+    create.setProductList(new ArrayList<>());
+
+    for (Product product : saveProductList) {
+      OrderFacadeRequestDto.OrderProductCreate orderProductCreate = new OrderProductCreate();
+      orderProductCreate.setId(product.getId());
+      orderProductCreate.setQuantity(quantity);
+      create.getProductList().add(orderProductCreate);
+    }
+
+    //when
+    CompletableFuture<?>[] futures = IntStream.range(0, max)
+        .mapToObj(i -> CompletableFuture.runAsync(() -> orderFacade.order(saveUser.getId(), create)))
+        .toArray(CompletableFuture[]::new);
+
+    CompletableFuture.allOf(futures).join();
+
+
+    //then
+    User whenUser = userRepository.findById(saveUser.getId()).get();
+    List<Product> whenProductList = productRepository.findAllByIdIn(saveProductList.stream().map(Product::getId).toList());
+
+    List<Order> orderList = orderRepository.findAllByUserId(whenUser.getId());
+
+    userRepository.delete(whenUser);
+    productRepository.deleteAllInBatch(saveProductList);
+    orderRepository.deleteAllInBatch(orderList);
+
+
+    assertEquals(whenUser.getAmount(), amount - (max * 2000));
+
+    for (int i = 0; i < whenProductList.size(); i++) {
+      assertEquals(stock1 - quantity * max, whenProductList.get(i).getStock());
+    }
   }
 }

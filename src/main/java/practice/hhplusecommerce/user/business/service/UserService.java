@@ -24,7 +24,7 @@ public class UserService {
 
   @Transactional
   public User chargeUserAmount(Long userId, Integer chargeAmount) {
-    User user = userRepository.findByIdPessimisticLock(userId).orElseThrow(() -> new NotFoundException("유저", true););
+    User user = userRepository.findByIdPessimisticLock(userId).orElseThrow(() -> new NotFoundException("유저", true));
     user.chargeAmount(chargeAmount);
     return user;
   }
@@ -41,5 +41,10 @@ public class UserService {
   public User saveUser(String userName) {
     User user = new User(null, userName, 0);
     return userRepository.save(user);
+  }
+
+  public void decreaseAmount(Long userId, int totalProductPrice) {
+    User user = userRepository.findByIdPessimisticLock(userId).orElseThrow(() -> new NotFoundException("유저", true));
+    user.decreaseAmount(totalProductPrice);
   }
 }

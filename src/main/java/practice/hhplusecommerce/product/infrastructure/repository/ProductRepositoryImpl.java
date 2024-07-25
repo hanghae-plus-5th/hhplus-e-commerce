@@ -37,4 +37,14 @@ public class ProductRepositoryImpl implements ProductRepository {
   public void saveAll(List<Product> productList) {
     productJpaRepository.saveAll(productList);
   }
+
+  @Override
+  public List<Product> getProductListByProductIdListPessimisticRock(List<Long> productIdList) {
+    return productJpaRepository.getProductListByProductIdListPessimisticRock(productIdList);
+  }
+
+  @Override
+  public void deleteAllInBatch(List<Product> productList) {
+    productJpaRepository.deleteAllInBatch(productList);
+  }
 }
