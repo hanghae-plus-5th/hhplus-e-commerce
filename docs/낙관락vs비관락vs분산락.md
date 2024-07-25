@@ -53,12 +53,14 @@
 #### 낙관락`1000명`  
 ![스크린샷 2024-07-26 오전 12 21 17](https://github.com/user-attachments/assets/2aad5fc6-a389-4661-be94-29d40fa16dc1)
 
-
 #### 낙관락 `10명`  
 ![image](https://github.com/user-attachments/assets/d1f90cf9-fdeb-4f80-8043-8fd8ca1212ab)
 
 #### 낙관락 `3명`  
 ![image](https://github.com/user-attachments/assets/329c2d6e-a6dd-46ad-a451-48daca6527a7)
+
+<br>
+<br>
 
 
 ## 비관락
@@ -71,6 +73,9 @@
 
 #### 비관락 `3명`  
 ![image](https://github.com/user-attachments/assets/9d0072a8-4a11-4100-a51c-9ae46f8db5e1)
+
+<br>
+<br>
 
 ## 분산락 
 #### 분산락 `1000명`
@@ -85,6 +90,9 @@
 
 <br>
 <br>
+<br>
+<br>
+
 
 ##  📕 주문 API 
 주문 API는 비관락를 바로 사용하기로 결정했다. 그 이유는   
