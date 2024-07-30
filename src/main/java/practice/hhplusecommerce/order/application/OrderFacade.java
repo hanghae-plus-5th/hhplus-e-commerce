@@ -1,12 +1,13 @@
 package practice.hhplusecommerce.order.application;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.BadRequestException;
-import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.common.handler.TransactionalHandler;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto.OrderResponse;
@@ -28,41 +29,38 @@ public class OrderFacade {
   private final UserService userService;
   private final ProductService productService;
   private final DataPlatform dataPlatform;
+  private final TransactionalHandler transactionalHandler;
 
   /**
    * 주문과 결제가 같이 진행됩니다.
-   * */
-  @Transactional
+   */
   public OrderResponse order(Long userId, Create create) {
     User user = userService.getUser(userId);
     List<Product> productList = productService.getProductListByProductIdList(create.getProductList().stream().map(OrderProductCreate::getId).toList());
 
-    if (productList.size() != create.getProductList().size()) {
-      log.error("OrderFacade.order  productList.size() {}, create.getProductList().size(), {}: ", productList.size(), create.getProductList().size());
-      throw new NotFoundException("상품", true);
-    }
-
-    Integer totalProductPrice = 0;
+    int totalProductPrice = 0;
+    Map<Long, Integer> productDecreaseStockMap = new HashMap<>();
 
     for (Product product : productList) {
       for (OrderProductCreate orderProductCreate : create.getProductList()) {
         if (product.getId().equals(orderProductCreate.getId())) {
-          product.validSalesPossible(orderProductCreate.getQuantity());
-          product.decreaseStock(orderProductCreate.getQuantity());
+          productDecreaseStockMap.put(product.getId(), orderProductCreate.getQuantity());
           totalProductPrice += product.getPrice() * orderProductCreate.getQuantity();
           break;
         }
       }
     }
 
-    user.validBuyPossible(totalProductPrice);
-
-    Order order = orderService.createOrder(totalProductPrice, user, productList, create.getProductList());
-
-    /**
-     * 유저 잔액 차감
-     * */
-    user.decreaseAmount(totalProductPrice);
+    int finalTotalProductPrice = totalProductPrice;
+    Order order = transactionalHandler.runWithTransaction(() -> createOrderAfterDecreaseProductStockAndUserAmount(
+            create,
+            finalTotalProductPrice,
+            userId,
+            productDecreaseStockMap,
+            user,
+            productList
+        )
+    );
 
     String status = dataPlatform.send(order.getId(), order.getUser().getId(), order.getOrderTotalPrice());
     if (!status.equals("OK 200")) {
@@ -73,5 +71,14 @@ public class OrderFacade {
     OrderResponse orderResponse = OrderFacadeResponseDtoMapper.toOrderResponse(order);
     orderResponse.setOrderProductList(order.getOrderProductList().stream().map(OrderFacadeResponseDtoMapper::toOrderProductResponse).toList());
     return orderResponse;
+  }
+
+  /**
+   * 최소 단위로 트랜잭션을 걸고 싶어서 분리
+   */
+  private Order createOrderAfterDecreaseProductStockAndUserAmount(Create create, int totalProductPrice, Long userId, Map<Long, Integer> productDecreaseStockMap, User user, List<Product> productList) {
+    productService.decreaseProductsStock(create.getProductList().stream().map(OrderProductCreate::getId).toList(), productDecreaseStockMap);
+    userService.decreaseAmount(userId, totalProductPrice);
+    return orderService.createOrder(totalProductPrice, user, productList, create.getProductList());
   }
 }

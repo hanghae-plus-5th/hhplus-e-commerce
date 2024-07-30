@@ -10,4 +10,8 @@ public interface UserRepository {
   User save(User user);
 
   Optional<User> findByName(String name);
+
+  void delete(User user);
+
+  Optional<User> findByIdPessimisticLock(Long userId);
 }

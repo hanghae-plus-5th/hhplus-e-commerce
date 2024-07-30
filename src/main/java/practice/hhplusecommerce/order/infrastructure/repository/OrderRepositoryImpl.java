@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.order.infrastructure.repository;
 
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,5 +21,15 @@ public class OrderRepositoryImpl implements OrderRepository {
   @Override
   public Optional<Order> findById(Long id) {
     return orderJpaRepository.findById(id);
+  }
+
+  @Override
+  public List<Order> findAllByUserId(Long userId) {
+    return orderJpaRepository.findAllByUserId(userId);
+  }
+
+  @Override
+  public void deleteAllInBatch(List<Order> orderList) {
+    orderJpaRepository.deleteAllInBatch(orderList);
   }
 }

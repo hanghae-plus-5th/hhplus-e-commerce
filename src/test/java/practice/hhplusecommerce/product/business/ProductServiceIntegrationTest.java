@@ -5,20 +5,26 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.common.handler.TransactionalHandler;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
 import practice.hhplusecommerce.order.business.repository.OrderRepository;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.product.business.service.ProductService;
+import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.user.business.repository.UserRepository;
 
-@Transactional
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ProductServiceIntegrationTest {
 
@@ -37,8 +43,12 @@ public class ProductServiceIntegrationTest {
   @Autowired
   OrderRepository orderRepository;
 
+  @Autowired
+  TransactionalHandler transactionalHandler;
+
 
   @Test
+  @Transactional
   public void 상품목록조회_성공_통합테스트() {
     //given
     List<Product> productList = List.of(
@@ -66,6 +76,7 @@ public class ProductServiceIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 상품상세조회_상품존재하지않아서_에러반환_실패_통합테스트() {
     //given
     long productId = -0L;
@@ -87,6 +98,7 @@ public class ProductServiceIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 상위상세조회_성공_통합테스트() {
     //given
     Product product = new Product(null, "꽃병1", 1500, 5);
@@ -103,6 +115,7 @@ public class ProductServiceIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 상품고유번호목록이_주어졌을때_상품목록조회_성공_통합테스트() {
 
     //given
@@ -132,6 +145,7 @@ public class ProductServiceIntegrationTest {
   }
 
   @Test
+  @Transactional
   public void 상품고유번호목록이_주어졌을때_상품목록조회_상품없을시_실패_통합테스트() {
 
     //given
@@ -151,5 +165,44 @@ public class ProductServiceIntegrationTest {
     assertNull(whenList);
     assertNotNull(e);
     assertEquals(e.getMessage(), "상품이 존재하지 않습니다.");
+  }
+
+  @Test
+  public void 상품재고차감기능_동시성문제_비관락_통합테스트() {
+    //given
+    int price = 500;
+    int quantity = 2;
+    int stock1 = 100000;
+    int max = 100;
+
+    List<Product> productList = List.of(
+        new Product(null, "꽃병1", price, stock1),
+        new Product(null, "꽃병2", price, stock1)
+    );
+
+    List<Product> saveProductList = new ArrayList<>();
+    for (Product product : productList) {
+      saveProductList.add(productRepository.save(product));
+    }
+
+    Map<Long, Integer> productDecreaseStockMap = new HashMap<>();
+    for (Product product : productList) {
+      productDecreaseStockMap.put(product.getId(), quantity);
+    }
+
+    //when
+    CompletableFuture<?>[] futures = IntStream.range(0, max)
+        .mapToObj(i -> CompletableFuture.runAsync(() -> transactionalHandler.runWithTransaction(() -> productService.decreaseProductsStock(productList.stream().map(Product::getId).toList(), productDecreaseStockMap))))
+        .toArray(CompletableFuture[]::new);
+
+    CompletableFuture.allOf(futures).join();
+
+    //then
+    productRepository.deleteAllInBatch(saveProductList);
+
+    List<Product> whenProductList = productRepository.findAllByIdIn(saveProductList.stream().map(Product::getId).toList());
+    for (int i = 0; i < whenProductList.size(); i++) {
+      assertEquals(stock1 - quantity * max, whenProductList.get(i).getStock());
+    }
   }
 }
