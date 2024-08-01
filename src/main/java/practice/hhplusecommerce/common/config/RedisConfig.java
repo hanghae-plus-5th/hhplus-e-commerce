@@ -1,5 +1,6 @@
 package practice.hhplusecommerce.common.config;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper.DefaultTyping;
 import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
@@ -31,7 +32,12 @@ public class RedisConfig {
 
     ObjectMapper objectMapper = new ObjectMapper()
         .registerModule(new JavaTimeModule())
-        .activateDefaultTyping(polymorphicTypeValidator, DefaultTyping.NON_FINAL);
+        .activateDefaultTyping(polymorphicTypeValidator, DefaultTyping.NON_FINAL)
+        .activateDefaultTyping(
+            BasicPolymorphicTypeValidator.builder().allowIfBaseType(Object.class).build(),
+            ObjectMapper.DefaultTyping.EVERYTHING,
+            JsonTypeInfo.As.PROPERTY
+        );
 
     GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(objectMapper);
 

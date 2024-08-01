@@ -3,6 +3,9 @@ package practice.hhplusecommerce.product.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Collections;
@@ -16,9 +19,12 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import practice.hhplusecommerce.common.exception.BadRequestException;
+import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.product.business.dto.ProductCommand;
+import practice.hhplusecommerce.product.business.dto.ProductCommand.Update;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
-import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.product.business.service.ProductService;
 
 @MockBean(JpaMetamodelMappingContext.class)
@@ -143,5 +149,101 @@ public class ProductServiceTest {
     assertNull(when);
     assertNotNull(e);
     assertEquals(e.getMessage(), "상품이 존재하지 않습니다.");
+  }
+
+  @Test
+  @DisplayName("수정한대로 수정이 되는지 테스트")
+  public void updateProduct_success() {
+    //given
+    long productId = 1L;
+    String name = "상품명";
+    int price = 1500;
+    int stock = 5;
+
+    Product product = new Product(productId, "업데이트전", 1300, 3);
+    ProductCommand.Update update = new Update(productId, name, price, stock);
+
+    //when
+    when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+    Product updatedProduct = productService.updateProduct(update);
+
+    //then
+    assertEquals(updatedProduct.getId(), productId);
+    assertEquals(updatedProduct.getName(), name);
+    assertEquals(updatedProduct.getPrice(), price);
+    assertEquals(updatedProduct.getStock(), stock);
+  }
+
+  @Test
+  @DisplayName("재고와 가격이 0미만 일 경우 실패하는지 테스트")
+  public void updateProduct_price_lessThan0_fail() {
+    //given
+    long productId = 1L;
+    String name = "상품명";
+    int price = -1;
+    int stock = 1400;
+
+    Product product = new Product(productId, "업데이트전", 1300, 3);
+    ProductCommand.Update update = new Update(productId, name, price, stock);
+
+    Product updatedProduct = null;
+    BadRequestException e = null;
+
+    //when
+    try {
+      when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+      updatedProduct = productService.updateProduct(update);
+    } catch (BadRequestException bre){
+      e = bre;
+    }
+
+    //then
+    assertNull(updatedProduct);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "가격이 0보다 작을 수 없습니다.");
+  }
+
+  @Test
+  @DisplayName("재고와 재고 0미만 일 경우 실패하는지 테스트 ")
+  public void updateProduct_stock_lessThan0_fail() {
+    //given
+    long productId = 1L;
+    String name = "상품명";
+    int price = 1400;
+    int stock = -1;
+
+    Product product = new Product(productId, "업데이트전", 1300, 3);
+    ProductCommand.Update update = new Update(productId, name, price, stock);
+
+    Product updatedProduct = null;
+    BadRequestException e = null;
+
+    //when
+
+    try {
+      when(productRepository.findById(productId)).thenReturn(Optional.of(product));
+      updatedProduct = productService.updateProduct(update);
+    } catch (BadRequestException bre){
+      e = bre;
+    }
+
+    //then
+    assertNull(updatedProduct);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "재고가 0보다 작을 수 없습니다.");
+  }
+
+  @Test
+  @DisplayName("삭제기능 삭제 성공 테스트")
+  public void deleteProduct_success() {
+    //given
+    long productId = 1L;
+
+    //when
+    doNothing().when(productRepository).deleteById(any(Long.class));
+    productService.deleteProduct(productId);
+
+    //then
+    verify(productRepository).deleteById(any(Long.class));
   }
 }

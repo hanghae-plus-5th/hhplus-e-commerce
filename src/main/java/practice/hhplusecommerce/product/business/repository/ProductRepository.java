@@ -19,4 +19,6 @@ public interface ProductRepository {
   List<Product> getProductListByProductIdListPessimisticRock(List<Long> productIdList);
 
   void deleteAllInBatch(List<Product> productList);
+
+  void deleteById(Long productId);
 }

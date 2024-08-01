@@ -9,9 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.order.business.entity.Order;
@@ -44,6 +46,14 @@ public class ProductFaçadeIntegrationTest {
   @Autowired
   OrderProductRepository orderProductRepository;
 
+  @Autowired
+  CacheManager cacheManager;
+
+  @BeforeEach
+  public void beforeEach() {
+    cacheManager.getCache("getProductList").clear();
+    cacheManager.getCache("getTop5ProductsLast3Days").clear();
+  }
 
   @Test
   public void 상품목록조회기능_조회되는지_통합테스트() {
