@@ -45,9 +45,12 @@ public class RedisConfig {
         .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer));
 
+    Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
+    cacheConfigurations.put("getTop5ProductsLast3Days", cacheConfig.entryTtl(Duration.ofHours(3)));
 
     return RedisCacheManager.builder(redisConnectionFactory)
         .cacheDefaults(cacheConfig)
+        .withInitialCacheConfigurations(cacheConfigurations)
         .build();
   }
 }

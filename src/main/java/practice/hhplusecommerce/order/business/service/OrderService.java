@@ -4,9 +4,11 @@ import jakarta.persistence.Tuple;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
+import practice.hhplusecommerce.order.business.command.OrderCommand;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
@@ -49,9 +51,11 @@ public class OrderService {
   }
 
   @Transactional
-  public List<Tuple> getTop5ProductsLast3Days() {
+  @Cacheable(value = "getTop5ProductsLast3Days")
+  public List<OrderCommand.Top5ProductsLast3DaysResponse> getTop5ProductsLast3Days() {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime minusDays3 = now.minusDays(3);
-    return orderProductRepository.getTop5ProductsLast3Days(now, minusDays3);
+    List<Tuple> top5ProductsLast3Days = orderProductRepository.getTop5ProductsLast3Days(now, minusDays3);
+    return top5ProductsLast3Days.stream().map(OrderCommand.Top5ProductsLast3DaysResponse::new).toList();
   }
 }
