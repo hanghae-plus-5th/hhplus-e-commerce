@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
+import practice.hhplusecommerce.order.business.command.OrderCommand.Top5ProductsLast3DaysResponse;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
@@ -109,20 +110,20 @@ public class OrderServiceIntegrationTest {
         .toList();
 
     //when
-    List<Tuple> top5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
+    List<Top5ProductsLast3DaysResponse> top5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
 
     //then
     //순위가맞고 상품고유번호가 맞는지 체크
-    assertEquals(sortedEntries.get(0).getKey(), top5ProductsLast3Days.get(0).get("productId"));
-    assertEquals(Long.valueOf(sortedEntries.get(0).getValue()), top5ProductsLast3Days.get(0).get("sumQuantity"));
-    assertEquals(sortedEntries.get(1).getKey(), top5ProductsLast3Days.get(1).get("productId"));
-    assertEquals(Long.valueOf(sortedEntries.get(1).getValue()), top5ProductsLast3Days.get(1).get("sumQuantity"));
-    assertEquals(sortedEntries.get(2).getKey(), top5ProductsLast3Days.get(2).get("productId"));
-    assertEquals(Long.valueOf(sortedEntries.get(2).getValue()), top5ProductsLast3Days.get(2).get("sumQuantity"));
-    assertEquals(sortedEntries.get(3).getKey(), top5ProductsLast3Days.get(3).get("productId"));
-    assertEquals(Long.valueOf(sortedEntries.get(3).getValue()), top5ProductsLast3Days.get(3).get("sumQuantity"));
-    assertEquals(sortedEntries.get(4).getKey(), top5ProductsLast3Days.get(4).get("productId"));
-    assertEquals(Long.valueOf(sortedEntries.get(4).getValue()), top5ProductsLast3Days.get(4).get("sumQuantity"));
+    assertEquals(sortedEntries.get(0).getKey(), top5ProductsLast3Days.get(0).productId());
+    assertEquals(Long.valueOf(sortedEntries.get(0).getValue()), top5ProductsLast3Days.get(0).sumQuantity());
+    assertEquals(sortedEntries.get(1).getKey(), top5ProductsLast3Days.get(1).productId());
+    assertEquals(Long.valueOf(sortedEntries.get(1).getValue()), top5ProductsLast3Days.get(1).sumQuantity());
+    assertEquals(sortedEntries.get(2).getKey(), top5ProductsLast3Days.get(2).productId());
+    assertEquals(Long.valueOf(sortedEntries.get(2).getValue()), top5ProductsLast3Days.get(2).sumQuantity());
+    assertEquals(sortedEntries.get(3).getKey(), top5ProductsLast3Days.get(3).productId());
+    assertEquals(Long.valueOf(sortedEntries.get(3).getValue()), top5ProductsLast3Days.get(3).sumQuantity());
+    assertEquals(sortedEntries.get(4).getKey(), top5ProductsLast3Days.get(4).productId());
+    assertEquals(Long.valueOf(sortedEntries.get(4).getValue()), top5ProductsLast3Days.get(4).sumQuantity());
   }
 
   private List<OrderProduct> getSaveOrderProductList() {

@@ -52,4 +52,16 @@ public class Product extends BaseLocalDateTimeEntity {
       throw new BadRequestException("재고가 부족합니다.");
     }
   }
+
+  public void update(String name, Integer stock, Integer price) {
+    if (stock < 0) {
+      throw new BadRequestException("재고가 0보다 작을 수 없습니다.");
+    } else if (price < 0) {
+      throw new BadRequestException("가격이 0보다 작을 수 없습니다.");
+    }
+
+    this.stock = stock;
+    this.name = name;
+    this.price = price;
+  }
 }

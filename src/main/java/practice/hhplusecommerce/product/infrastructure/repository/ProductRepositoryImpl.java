@@ -47,4 +47,9 @@ public class ProductRepositoryImpl implements ProductRepository {
   public void deleteAllInBatch(List<Product> productList) {
     productJpaRepository.deleteAllInBatch(productList);
   }
+
+  @Override
+  public void deleteById(Long productId) {
+    productJpaRepository.deleteById(productId);
+  }
 }

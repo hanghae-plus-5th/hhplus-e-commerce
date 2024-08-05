@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.NotFoundException;
+import practice.hhplusecommerce.product.business.dto.ProductCommand;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 
@@ -18,8 +21,23 @@ public class ProductService {
   private final ProductRepository productRepository;
 
   @Transactional
+  @Cacheable(value = "getProductList", key = "0")
   public List<Product> getProductList() {
     return productRepository.findAll();
+  }
+
+  @Transactional
+  @CacheEvict(value = "getProductList", key = "0")
+  public void deleteProduct(Long productId) {
+    productRepository.deleteById(productId);
+  }
+
+  @Transactional
+  @CacheEvict(value = "getProductList", key = "0")
+  public Product updateProduct(ProductCommand.Update command) {
+    Product product = productRepository.findById(command.id()).orElseThrow(() -> new NotFoundException("상품", true));
+    product.update(command.name(), command.stock(), command.price());
+    return product;
   }
 
   @Transactional

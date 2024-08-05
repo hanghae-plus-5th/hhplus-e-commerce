@@ -93,7 +93,7 @@ public class UserServiceTest {
 
     //when
     User user = new User(userId, userName, amount);
-    when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+    when(userRepository.findByIdPessimisticLock(userId)).thenReturn(Optional.of(user));
     User when = userService.chargeUserAmount(userId, chargeAmount);
 
     //then
@@ -135,7 +135,7 @@ public class UserServiceTest {
 
     //when
     User user = new User(userId, userName, amount);
-    when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+    when(userRepository.findByIdPessimisticLock(userId)).thenReturn(Optional.of(user));
 
     User when = null;
     Exception e = null;
@@ -161,7 +161,7 @@ public class UserServiceTest {
 
     //when
     User user = new User(userId, userName, amount);
-    when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+    when(userRepository.findByIdPessimisticLock(userId)).thenReturn(Optional.of(user));
 
     User when = null;
     Exception e = null;

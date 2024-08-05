@@ -3,13 +3,14 @@ package practice.hhplusecommerce.product.application;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.order.business.service.OrderService;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Top5ProductsLast3DaysResponse;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDtoMapper;
+import practice.hhplusecommerce.product.business.dto.ProductCommand;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
+import practice.hhplusecommerce.product.presentation.request.ProductRequestDto.Update;
 
 @Component
 @RequiredArgsConstructor
@@ -32,5 +33,13 @@ public class ProductFacade {
 
   public List<Top5ProductsLast3DaysResponse> getTop5ProductsLast3Days() {
     return orderService.getTop5ProductsLast3Days().stream().map(ProductFacadeResponseDtoMapper::toTop5ProductsLast3DaysResponse).toList();
+  }
+
+  public void updateProduct(Long productId, Update update) {
+    productService.updateProduct(new ProductCommand.Update(productId, update.name(), update.price(), update.stock()));
+  }
+
+  public void deleteProduct(Long productId) {
+    productService.deleteProduct(productId);
   }
 }

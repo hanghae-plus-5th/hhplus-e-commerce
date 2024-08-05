@@ -3,21 +3,32 @@ package practice.hhplusecommerce.product.business;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.CacheManager;
 import org.springframework.transaction.annotation.Transactional;
+import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.common.handler.TransactionalHandler;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
 import practice.hhplusecommerce.order.business.repository.OrderRepository;
+import practice.hhplusecommerce.product.business.dto.ProductCommand;
+import practice.hhplusecommerce.product.business.dto.ProductCommand.Update;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.repository.ProductRepository;
 import practice.hhplusecommerce.product.business.service.ProductService;
@@ -45,6 +56,15 @@ public class ProductServiceIntegrationTest {
 
   @Autowired
   TransactionalHandler transactionalHandler;
+
+  @Autowired
+  CacheManager cacheManager;
+
+  @BeforeEach
+  public void beforeEach() {
+    cacheManager.getCache("getProductList").clear();
+    cacheManager.getCache("getTop5ProductsLast3Days").clear();
+  }
 
 
   @Test
@@ -204,5 +224,103 @@ public class ProductServiceIntegrationTest {
     for (int i = 0; i < whenProductList.size(); i++) {
       assertEquals(stock1 - quantity * max, whenProductList.get(i).getStock());
     }
+  }
+
+  @Test
+  @Transactional
+  @DisplayName("수정한대로 수정이 되는지 통합 테스트")
+  public void updateProduct_success() {
+    //given
+    String name = "변경된명";
+    int price = 1000;
+    int stock = 1000;
+
+    Product product = new Product(null, "꽃병1", 1500, 5);
+    Product given = productRepository.save(product);
+
+    ProductCommand.Update update = new Update(given.getId(), name, price, stock);
+
+    //when
+    Product when = productService.updateProduct(update);
+
+    //then
+    assertEquals(when.getId(), given.getId());
+    assertEquals(when.getPrice(), price);
+    assertEquals(when.getName(), name);
+    assertEquals(when.getStock(), stock);
+  }
+
+  @Test
+  @DisplayName("재고와 가격이 0미만 일 경우 실패하는지 통합 테스트")
+  public void updateProduct_price_LessThan0_fail() {
+    //given
+    String name = "변경된명";
+    int price = -1;
+    int stock = 1000;
+
+    Product updatedProduct = null;
+    BadRequestException e = null;
+
+    Product product = new Product(null, "꽃병1", 1500, 5);
+    Product given = productRepository.save(product);
+
+    ProductCommand.Update update = new Update(given.getId(), name, price, stock);
+
+    //when
+    try {
+      updatedProduct = productService.updateProduct(update);
+    } catch (BadRequestException bre){
+      e = bre;
+    }
+
+    //then
+    assertNull(updatedProduct);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "가격이 0보다 작을 수 없습니다.");
+  }
+
+  @Test
+  @DisplayName("재고와 재고 0마만 일 경우 실패하는지 테스트 ")
+  public void updateProduct_stock_lessThan0_fail() {
+    //given
+    String name = "변경된명";
+    int price = 1000;
+    int stock = -10;
+
+    Product updatedProduct = null;
+    BadRequestException e = null;
+
+    Product product = new Product(null, "꽃병1", 1500, 5);
+    Product given = productRepository.save(product);
+
+    ProductCommand.Update update = new Update(given.getId(), name, price, stock);
+
+    //when
+    try {
+      updatedProduct = productService.updateProduct(update);
+    } catch (BadRequestException bre){
+      e = bre;
+    }
+
+    //then
+    assertNull(updatedProduct);
+    assertNotNull(e);
+    assertEquals(e.getMessage(), "재고가 0보다 작을 수 없습니다.");
+  }
+
+  @Test
+  @DisplayName("삭제기능 삭제 성공 통합테스트")
+  public void deleteProduct_success() {
+    //given
+    Product product = new Product(null, "꽃병1", 1500, 5);
+    Product given = productRepository.save(product);
+
+    //when
+    productService.deleteProduct(given.getId());
+
+    Product when = productRepository.findById(given.getId()).orElse(null);
+
+    //then
+    assertNull(when);
   }
 }

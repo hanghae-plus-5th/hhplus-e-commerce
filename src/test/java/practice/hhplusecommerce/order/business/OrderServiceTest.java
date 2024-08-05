@@ -18,6 +18,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
+import practice.hhplusecommerce.order.business.command.OrderCommand.Top5ProductsLast3DaysResponse;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
@@ -104,14 +105,14 @@ public class OrderServiceTest {
 
     //when
     when(orderProductRepository.getTop5ProductsLast3Days(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(givenList);
-    List<Tuple> whenList = orderService.getTop5ProductsLast3Days();
+    List<Top5ProductsLast3DaysResponse> top5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
 
     //then
     for (int i = 0; i < 1; i++) {
-      assertEquals(givenList.get(i).get("productId"), whenList.get(i).get("productId"));
-      assertEquals(givenList.get(i).get("productName"), whenList.get(i).get("productName"));
-      assertEquals(givenList.get(i).get("productStock"), whenList.get(i).get("productStock"));
-      assertEquals(givenList.get(i).get("productPrice"), whenList.get(i).get("productPrice"));
+      assertEquals(givenList.get(i).get("productId"), top5ProductsLast3Days.get(i).productId());
+      assertEquals(givenList.get(i).get("productName"), top5ProductsLast3Days.get(i).productName());
+      assertEquals(givenList.get(i).get("productStock"), top5ProductsLast3Days.get(i).productStock());
+      assertEquals(givenList.get(i).get("productPrice"), top5ProductsLast3Days.get(i).productPrice());
     }
     verify(orderProductRepository).getTop5ProductsLast3Days(any(LocalDateTime.class), any(LocalDateTime.class));
   }
