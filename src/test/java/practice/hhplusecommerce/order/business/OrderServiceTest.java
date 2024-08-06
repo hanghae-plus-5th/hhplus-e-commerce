@@ -18,7 +18,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.OrderProductCreate;
-import practice.hhplusecommerce.order.business.command.OrderCommand.Top5ProductsLast3DaysResponse;
+import practice.hhplusecommerce.order.business.command.OrderCommand.PopularProductResponse;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
@@ -104,16 +104,16 @@ public class OrderServiceTest {
     );
 
     //when
-    when(orderProductRepository.getTop5ProductsLast3Days(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(givenList);
-    List<Top5ProductsLast3DaysResponse> top5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
+    when(orderProductRepository.getPopularProduct(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(givenList);
+    List<PopularProductResponse> popularProductResponses = orderService.getPopularProduct();
 
     //then
     for (int i = 0; i < 1; i++) {
-      assertEquals(givenList.get(i).get("productId"), top5ProductsLast3Days.get(i).productId());
-      assertEquals(givenList.get(i).get("productName"), top5ProductsLast3Days.get(i).productName());
-      assertEquals(givenList.get(i).get("productStock"), top5ProductsLast3Days.get(i).productStock());
-      assertEquals(givenList.get(i).get("productPrice"), top5ProductsLast3Days.get(i).productPrice());
+      assertEquals(givenList.get(i).get("productId"), popularProductResponses.get(i).productId());
+      assertEquals(givenList.get(i).get("productName"), popularProductResponses.get(i).productName());
+      assertEquals(givenList.get(i).get("productStock"), popularProductResponses.get(i).productStock());
+      assertEquals(givenList.get(i).get("productPrice"), popularProductResponses.get(i).productPrice());
     }
-    verify(orderProductRepository).getTop5ProductsLast3Days(any(LocalDateTime.class), any(LocalDateTime.class));
+    verify(orderProductRepository).getPopularProduct(any(LocalDateTime.class), any(LocalDateTime.class));
   }
 }

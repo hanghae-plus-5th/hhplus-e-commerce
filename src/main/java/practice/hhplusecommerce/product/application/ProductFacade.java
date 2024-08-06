@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import practice.hhplusecommerce.order.business.service.OrderService;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
-import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Top5ProductsLast3DaysResponse;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.PopularProductResponse;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDtoMapper;
 import practice.hhplusecommerce.product.business.dto.ProductCommand;
 import practice.hhplusecommerce.product.business.entity.Product;
@@ -31,8 +31,8 @@ public class ProductFacade {
     return ProductFacadeResponseDtoMapper.toProductFacadeDto(productService.getProduct(productId));
   }
 
-  public List<Top5ProductsLast3DaysResponse> getTop5ProductsLast3Days() {
-    return orderService.getTop5ProductsLast3Days().stream().map(ProductFacadeResponseDtoMapper::toTop5ProductsLast3DaysResponse).toList();
+  public List<PopularProductResponse> getPopularProduct() {
+    return orderService.getPopularProduct().stream().map(ProductFacadeResponseDtoMapper::toTop5ProductsLast3DaysResponse).toList();
   }
 
   public void updateProduct(Long productId, Update update) {

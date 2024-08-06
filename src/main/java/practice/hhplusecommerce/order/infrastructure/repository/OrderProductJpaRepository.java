@@ -21,7 +21,7 @@ public interface OrderProductJpaRepository extends JpaRepository<OrderProduct, L
       + "group by p.id, p.name, p.price, p.stock "
       + "order by sumQuantity desc, productId desc "
       + "limit 5")
-  List<Tuple> findTop5ProductsLast3Days(LocalDateTime now, LocalDateTime minusDays3);
+  List<Tuple> getPopularProduct(LocalDateTime now, LocalDateTime minusDays3);
 
   List<OrderProduct> findALlByOrderId(Long orderId);
 }

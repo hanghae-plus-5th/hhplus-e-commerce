@@ -51,11 +51,11 @@ public class OrderService {
   }
 
   @Transactional
-  @Cacheable(value = "getTop5ProductsLast3Days")
-  public List<OrderCommand.Top5ProductsLast3DaysResponse> getTop5ProductsLast3Days() {
+  @Cacheable(value = "getPopularProduct")
+  public List<OrderCommand.PopularProductResponse> getPopularProduct() {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime minusDays3 = now.minusDays(3);
-    List<Tuple> top5ProductsLast3Days = orderProductRepository.getTop5ProductsLast3Days(now, minusDays3);
-    return top5ProductsLast3Days.stream().map(OrderCommand.Top5ProductsLast3DaysResponse::new).toList();
+    List<Tuple> popularProductList = orderProductRepository.getPopularProduct(now, minusDays3);
+    return popularProductList.stream().map(OrderCommand.PopularProductResponse::new).toList();
   }
 }

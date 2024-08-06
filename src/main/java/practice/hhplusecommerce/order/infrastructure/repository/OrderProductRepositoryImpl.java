@@ -20,8 +20,8 @@ public class OrderProductRepositoryImpl implements OrderProductRepository {
   }
 
   @Override
-  public List<Tuple> getTop5ProductsLast3Days(LocalDateTime now, LocalDateTime minusDays3) {
-    return orderProductJpaRepository.findTop5ProductsLast3Days(now, minusDays3);
+  public List<Tuple> getPopularProduct(LocalDateTime now, LocalDateTime minusDays3) {
+    return orderProductJpaRepository.getPopularProduct(now, minusDays3);
   }
 
   @Override

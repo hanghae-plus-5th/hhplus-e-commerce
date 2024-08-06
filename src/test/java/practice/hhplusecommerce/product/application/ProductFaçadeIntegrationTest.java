@@ -141,7 +141,7 @@ public class ProductFaçadeIntegrationTest {
             .thenComparing(Map.Entry.<Long, Integer>comparingByKey().reversed()))
         .toList();
 
-    List<ProductFacadeResponseDto.Top5ProductsLast3DaysResponse> top5ProductsLast3Days = productFacade.getTop5ProductsLast3Days();
+    List<ProductFacadeResponseDto.PopularProductResponse> top5ProductsLast3Days = productFacade.getPopularProduct();
 
     //then
     //순위가맞고 상품고유번호가 맞는지 체크

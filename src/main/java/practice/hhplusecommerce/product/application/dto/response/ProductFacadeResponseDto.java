@@ -9,7 +9,7 @@ public class ProductFacadeResponseDto {
   @Getter
   @Setter
   @NoArgsConstructor
-  public static class Top5ProductsLast3DaysResponse {
+  public static class PopularProductResponse {
 
     private Long productId;
     private String productName;
@@ -17,7 +17,7 @@ public class ProductFacadeResponseDto {
     private Integer productStock;
     private Long sumQuantity;
 
-    public Top5ProductsLast3DaysResponse(Long productId, String productName, Integer productPrice, Integer productStock, Long sumQuantity) {
+    public PopularProductResponse(Long productId, String productName, Integer productPrice, Integer productStock, Long sumQuantity) {
       this.productId = productId;
       this.productName = productName;
       this.productPrice = productPrice;

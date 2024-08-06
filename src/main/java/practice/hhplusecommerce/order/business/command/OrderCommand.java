@@ -4,7 +4,7 @@ import jakarta.persistence.Tuple;
 
 public class OrderCommand {
 
-  public record Top5ProductsLast3DaysResponse(
+  public record PopularProductResponse(
       Long productId,
       String productName,
       Integer productPrice,
@@ -12,7 +12,7 @@ public class OrderCommand {
       Long sumQuantity
   ) {
 
-    public Top5ProductsLast3DaysResponse(Long productId, String productName, Integer productPrice, Integer productStock, Long sumQuantity) {
+    public PopularProductResponse(Long productId, String productName, Integer productPrice, Integer productStock, Long sumQuantity) {
       this.productId = productId;
       this.productName = productName;
       this.productPrice = productPrice;
@@ -20,7 +20,7 @@ public class OrderCommand {
       this.sumQuantity = sumQuantity;
     }
 
-    public Top5ProductsLast3DaysResponse(Tuple tuple) {
+    public PopularProductResponse(Tuple tuple) {
       this(
           (Long) tuple.get("productId"),
           (String) tuple.get("productName"),

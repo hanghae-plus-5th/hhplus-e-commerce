@@ -88,10 +88,10 @@ public class ProductControllerTest {
   @Test
   public void 인기판매상품조회기능_성공케이스() throws Exception {
     //given
-    List<ProductFacadeResponseDto.Top5ProductsLast3DaysResponse> givenList = List.of(new ProductFacadeResponseDto.Top5ProductsLast3DaysResponse(1L, "꽃병", 1500, 5, 20L));
+    List<ProductFacadeResponseDto.PopularProductResponse> givenList = List.of(new ProductFacadeResponseDto.PopularProductResponse(1L, "꽃병", 1500, 5, 20L));
 
     //when
-    when(productFacade.getTop5ProductsLast3Days()).thenReturn(givenList);
+    when(productFacade.getPopularProduct()).thenReturn(givenList);
 
     //then
     mockMvc.perform(get("/api/product/top"))

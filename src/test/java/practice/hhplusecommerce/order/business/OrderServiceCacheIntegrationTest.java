@@ -20,7 +20,7 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.test.context.ActiveProfiles;
 import practice.hhplusecommerce.common.test.DatabaseCleanUp;
-import practice.hhplusecommerce.order.business.command.OrderCommand.Top5ProductsLast3DaysResponse;
+import practice.hhplusecommerce.order.business.command.OrderCommand.PopularProductResponse;
 import practice.hhplusecommerce.order.business.entity.Order;
 import practice.hhplusecommerce.order.business.entity.OrderProduct;
 import practice.hhplusecommerce.order.business.repository.OrderProductRepository;
@@ -104,21 +104,21 @@ public class OrderServiceCacheIntegrationTest {
     cacheManager.getCache("getTop5ProductsLast3Days").clear();
 
     //when
-    List<Top5ProductsLast3DaysResponse> top5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
-    List<Top5ProductsLast3DaysResponse> cacheTop5ProductsLast3Days = orderService.getTop5ProductsLast3Days();
-    orderService.getTop5ProductsLast3Days();
+    List<PopularProductResponse> popularProductList = orderService.getPopularProduct();
+    List<PopularProductResponse> cachePopularProductList = orderService.getPopularProduct();
+    orderService.getPopularProduct();
 
     //then
-    verify(orderProductRepository, times(1)).getTop5ProductsLast3Days(any(LocalDateTime.class), any(LocalDateTime.class));
-    assertEquals(top5ProductsLast3Days.get(0).productId(), cacheTop5ProductsLast3Days.get(0).productId());
-    assertEquals(top5ProductsLast3Days.get(0).productName(), cacheTop5ProductsLast3Days.get(0).productName());
-    assertEquals(top5ProductsLast3Days.get(1).productId(), cacheTop5ProductsLast3Days.get(1).productId());
-    assertEquals(top5ProductsLast3Days.get(1).productName(), cacheTop5ProductsLast3Days.get(1).productName());
-    assertEquals(top5ProductsLast3Days.get(2).productId(), cacheTop5ProductsLast3Days.get(2).productId());
-    assertEquals(top5ProductsLast3Days.get(2).productName(), cacheTop5ProductsLast3Days.get(2).productName());
-    assertEquals(top5ProductsLast3Days.get(3).productId(), cacheTop5ProductsLast3Days.get(3).productId());
-    assertEquals(top5ProductsLast3Days.get(3).productName(), cacheTop5ProductsLast3Days.get(3).productName());
-    assertEquals(top5ProductsLast3Days.get(4).productId(), cacheTop5ProductsLast3Days.get(4).productId());
-    assertEquals(top5ProductsLast3Days.get(4).productName(), cacheTop5ProductsLast3Days.get(4).productName());
+    verify(orderProductRepository, times(1)).getPopularProduct(any(LocalDateTime.class), any(LocalDateTime.class));
+    assertEquals(popularProductList.get(0).productId(), cachePopularProductList.get(0).productId());
+    assertEquals(popularProductList.get(0).productName(), cachePopularProductList.get(0).productName());
+    assertEquals(popularProductList.get(1).productId(), cachePopularProductList.get(1).productId());
+    assertEquals(popularProductList.get(1).productName(), cachePopularProductList.get(1).productName());
+    assertEquals(popularProductList.get(2).productId(), cachePopularProductList.get(2).productId());
+    assertEquals(popularProductList.get(2).productName(), cachePopularProductList.get(2).productName());
+    assertEquals(popularProductList.get(3).productId(), cachePopularProductList.get(3).productId());
+    assertEquals(popularProductList.get(3).productName(), cachePopularProductList.get(3).productName());
+    assertEquals(popularProductList.get(4).productId(), cachePopularProductList.get(4).productId());
+    assertEquals(popularProductList.get(4).productName(), cachePopularProductList.get(4).productName());
   }
 }

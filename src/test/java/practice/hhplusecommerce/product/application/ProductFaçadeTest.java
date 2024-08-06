@@ -17,7 +17,7 @@ import practice.hhplusecommerce.order.business.command.OrderCommand;
 import practice.hhplusecommerce.order.business.service.OrderService;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto;
 import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Response;
-import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.Top5ProductsLast3DaysResponse;
+import practice.hhplusecommerce.product.application.dto.response.ProductFacadeResponseDto.PopularProductResponse;
 import practice.hhplusecommerce.product.business.entity.Product;
 import practice.hhplusecommerce.product.business.service.ProductService;
 import practice.hhplusecommerce.support.CustomTuple;
@@ -93,24 +93,24 @@ public class ProductFaçadeTest {
   public void 상위상품조회시_상위상품조회되는지_테스트() {
 
     // Tuple 객체 생성 및 데이터 설정
-    List<OrderCommand.Top5ProductsLast3DaysResponse> top5ProductsLast3DaysResponses = List.of(
-        new OrderCommand.Top5ProductsLast3DaysResponse(1L, "상품1", 1000, 50, 10L),
-        new OrderCommand.Top5ProductsLast3DaysResponse(2L, "상품2", 2000, 30, 5L),
-        new OrderCommand.Top5ProductsLast3DaysResponse(2L, "상품2", 2000, 30, 5L),
-        new OrderCommand.Top5ProductsLast3DaysResponse(2L, "상품2", 2000, 30, 5L),
-        new OrderCommand.Top5ProductsLast3DaysResponse(2L, "상품2", 2000, 30, 5L)
+    List<OrderCommand.PopularProductResponse> popularProductResponses = List.of(
+        new OrderCommand.PopularProductResponse(1L, "상품1", 1000, 50, 10L),
+        new OrderCommand.PopularProductResponse(2L, "상품2", 2000, 30, 5L),
+        new OrderCommand.PopularProductResponse(2L, "상품2", 2000, 30, 5L),
+        new OrderCommand.PopularProductResponse(2L, "상품2", 2000, 30, 5L),
+        new OrderCommand.PopularProductResponse(2L, "상품2", 2000, 30, 5L)
     );
 
-    when(orderService.getTop5ProductsLast3Days()).thenReturn(top5ProductsLast3DaysResponses);
-    List<Top5ProductsLast3DaysResponse> top5ProductsLast3Days = ProductFacade.getTop5ProductsLast3Days();
+    when(orderService.getPopularProduct()).thenReturn(popularProductResponses);
+    List<PopularProductResponse> top5ProductsLast3Days = ProductFacade.getPopularProduct();
 
     for (int i = 0; i < 1; i++) {
-      assertEquals(top5ProductsLast3Days.get(i).getProductId(), top5ProductsLast3DaysResponses.get(i).productId());
-      assertEquals(top5ProductsLast3Days.get(i).getProductName(), top5ProductsLast3DaysResponses.get(i).productName());
-      assertEquals(top5ProductsLast3Days.get(i).getProductStock(), top5ProductsLast3DaysResponses.get(i).productStock());
-      assertEquals(top5ProductsLast3Days.get(i).getProductPrice(), top5ProductsLast3DaysResponses.get(i).productPrice());
+      assertEquals(top5ProductsLast3Days.get(i).getProductId(), popularProductResponses.get(i).productId());
+      assertEquals(top5ProductsLast3Days.get(i).getProductName(), popularProductResponses.get(i).productName());
+      assertEquals(top5ProductsLast3Days.get(i).getProductStock(), popularProductResponses.get(i).productStock());
+      assertEquals(top5ProductsLast3Days.get(i).getProductPrice(), popularProductResponses.get(i).productPrice());
     }
-    verify(orderService).getTop5ProductsLast3Days();
+    verify(orderService).getPopularProduct();
   }
 
 }

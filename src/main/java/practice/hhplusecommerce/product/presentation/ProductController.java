@@ -43,8 +43,8 @@ public class ProductController {
 
   @Operation(summary = "인기 판매 상품 조회")
   @GetMapping("/top")
-  public List<ProductResponse> getTop5ProductList() {
-    return productFacade.getTop5ProductsLast3Days()
+  public List<ProductResponse> getPopularProduct() {
+    return productFacade.getPopularProduct()
         .stream()
         .map(ProductResponseDtoMapper::toProductResponse)
         .toList();
