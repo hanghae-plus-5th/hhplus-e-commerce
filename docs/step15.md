@@ -44,7 +44,7 @@ from cart
 where user_id = 1;
 ```
 
-### ✅ 인덱스 미적용 / 적용 비교 
+### ✅ 인덱스 미적용
 > 87ms
 
 ![스크린샷 2024-08-07 오후 11 17 24](https://github.com/user-attachments/assets/abeecaa5-d7e0-42b4-a00f-ce8cecce390b)
