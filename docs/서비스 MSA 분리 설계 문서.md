@@ -53,7 +53,7 @@
 
 
 
-# 4. MSA로 분리하고 kafka 요청과 롤백 시쿼스 다이어그램
+# 4. MSA로 분리하고 각 서비스 통신 및 kafka 요청과 롤백 시쿼스 다이어그램
 ![image](https://github.com/user-attachments/assets/eea0c129-bd59-49d7-9b15-117aa5d62ba5)
 ![image](https://github.com/user-attachments/assets/f7be8c33-7821-408b-a601-17a2e8e6c055)
 ![image](https://github.com/user-attachments/assets/aeb25e12-18e4-4f49-a531-a804283b8e20)
