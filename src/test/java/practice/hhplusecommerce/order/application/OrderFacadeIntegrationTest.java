@@ -56,10 +56,9 @@ public class OrderFacadeIntegrationTest {
   private OrderProductRepository orderProductRepository;
 
   @Test
-  @Transactional
   public void 주문기능_주문되는지_통합테스트() {
     //given
-    String userName = "백현";
+    String userName = "백현1";
     int amount = 5500;
     int price1 = 500;
     int price2 = 400;
@@ -105,6 +104,9 @@ public class OrderFacadeIntegrationTest {
     }
 
     assertEquals(orderProductList.size(), order.getOrderProductList().size());
+
+    userRepository.delete(saveUser);
+    productRepository.deleteAllInBatch(saveProductList);
   }
 
   @Test

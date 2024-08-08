@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionPhase;
+import org.springframework.transaction.event.TransactionalEventListener;
 import practice.hhplusecommerce.common.exception.BadRequestException;
 import practice.hhplusecommerce.order.business.event.DataPlatformEvent;
 import practice.hhplusecommerce.order.infrastructure.dataPlatform.DataPlatform;
@@ -17,7 +19,7 @@ public class DataPlatformEventListener {
   private final DataPlatform dataPlatform;
 
   @Async
-  @EventListener
+  @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
   public void handleSendDataPlatformEvent(DataPlatformEvent dataPlatformEvent) {
     String status = dataPlatform.send(dataPlatformEvent.getOrderId(), dataPlatformEvent.getUserId(), dataPlatformEvent.getOrderTotalPrice());
     log.info("OrderFacade.order status : {}", status);
