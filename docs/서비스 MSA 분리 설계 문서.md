@@ -54,9 +54,9 @@
 
 
 # 4. MSA로 분리하고 kafka 요청과 롤백 시쿼스 다이어그램
-![image](https://github.com/user-attachments/assets/0a31bc75-deef-4bd6-9ae3-458ea5915b94)
-![image](https://github.com/user-attachments/assets/068cbfd5-1632-4ff8-aa46-9081b8425706)
-![image](https://github.com/user-attachments/assets/d4a47960-52a2-4b30-941a-3ebdf6cd1563)
+![image](https://github.com/user-attachments/assets/eea0c129-bd59-49d7-9b15-117aa5d62ba5)
+![image](https://github.com/user-attachments/assets/f7be8c33-7821-408b-a601-17a2e8e6c055)
+![image](https://github.com/user-attachments/assets/aeb25e12-18e4-4f49-a531-a804283b8e20)
 
 
 
