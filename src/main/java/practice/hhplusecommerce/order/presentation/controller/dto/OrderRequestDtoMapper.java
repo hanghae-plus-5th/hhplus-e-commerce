@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.order.presentation.dto;
+package practice.hhplusecommerce.order.presentation.controller.dto;
 
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto;
 import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequestDto.Create;

@@ -25,8 +25,9 @@ import practice.hhplusecommerce.order.application.dto.request.OrderFacadeRequest
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto;
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto.OrderProductResponse;
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto.OrderResponse;
-import practice.hhplusecommerce.order.presentation.dto.OrderRequestDto.OrderCreate;
-import practice.hhplusecommerce.order.presentation.dto.OrderRequestDto.OrderProductCreate;
+import practice.hhplusecommerce.order.presentation.controller.OrderController;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderRequestDto.OrderCreate;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderRequestDto.OrderProductCreate;
 
 @WebMvcTest(OrderController.class)
 @MockBean(JpaMetamodelMappingContext.class)

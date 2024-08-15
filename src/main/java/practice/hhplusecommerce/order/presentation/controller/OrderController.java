@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.order.presentation;
+package practice.hhplusecommerce.order.presentation.controller;
 
 import static practice.hhplusecommerce.iterceptor.JwtTokenInterceptor.TOKEN_INFO;
 
@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import practice.hhplusecommerce.common.jwt.TokenInfoDto;
 import practice.hhplusecommerce.order.application.OrderFacade;
-import practice.hhplusecommerce.order.presentation.dto.OrderRequestDto.OrderCreate;
-import practice.hhplusecommerce.order.presentation.dto.OrderRequestDtoMapper;
-import practice.hhplusecommerce.order.presentation.dto.OrderResponseDto.OrderResponse;
-import practice.hhplusecommerce.order.presentation.dto.OrderResponseDtoMapper;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderRequestDto.OrderCreate;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderRequestDtoMapper;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderResponseDto.OrderResponse;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderResponseDtoMapper;
 
 @Tag(name = "주문")
 @RestController

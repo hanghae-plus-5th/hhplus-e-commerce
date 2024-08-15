@@ -1,8 +1,8 @@
-package practice.hhplusecommerce.order.presentation.dto;
+package practice.hhplusecommerce.order.presentation.controller.dto;
 
 import practice.hhplusecommerce.order.application.dto.response.OrderFacadeResponseDto;
-import practice.hhplusecommerce.order.presentation.dto.OrderResponseDto.OrderProductResponse;
-import practice.hhplusecommerce.order.presentation.dto.OrderResponseDto.OrderResponse;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderResponseDto.OrderProductResponse;
+import practice.hhplusecommerce.order.presentation.controller.dto.OrderResponseDto.OrderResponse;
 
 public class OrderResponseDtoMapper {
 

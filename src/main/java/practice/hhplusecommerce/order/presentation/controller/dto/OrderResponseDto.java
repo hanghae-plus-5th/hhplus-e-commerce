@@ -1,4 +1,4 @@
-package practice.hhplusecommerce.order.presentation.dto;
+package practice.hhplusecommerce.order.presentation.controller.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
