@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Comment;
 import practice.hhplusecommerce.common.baseEntity.BaseLocalDateTimeEntity;
 import practice.hhplusecommerce.outbox.business.entity.enums.OutboxState;
@@ -27,6 +28,10 @@ public class Outbox extends BaseLocalDateTimeEntity {
 
   @Comment("메시지")
   private String message;
+
+  @Comment("재시도 횟수")
+  @ColumnDefault("0")
+  private Integer retryCount;
 
   @NotNull
   @Comment("타입")
@@ -49,5 +54,9 @@ public class Outbox extends BaseLocalDateTimeEntity {
 
   public void saveMessage(String message) {
     this.message = message;
+  }
+
+  public void retry() {
+    retryCount = retryCount + 1;
   }
 }

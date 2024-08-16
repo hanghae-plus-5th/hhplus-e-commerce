@@ -1,5 +1,7 @@
 package practice.hhplusecommerce.outbox.infrastructure.repository;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,10 @@ public class OutboxRepositoryImpl implements OutboxRepository {
   @Override
   public Optional<Outbox> findById(Long outboxId) {
     return outboxJpaRepository.findById(outboxId);
+  }
+
+  @Override
+  public List<Outbox> findAllByFailEvent(LocalDateTime localDateTime) {
+    return outboxJpaRepository.findAllByFailEvent(localDateTime);
   }
 }
