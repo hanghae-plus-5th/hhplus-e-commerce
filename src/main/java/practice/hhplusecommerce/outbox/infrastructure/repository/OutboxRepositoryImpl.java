@@ -28,4 +28,9 @@ public class OutboxRepositoryImpl implements OutboxRepository {
   public List<Outbox> findAllByFailEvent(LocalDateTime localDateTime) {
     return outboxJpaRepository.findAllByFailEvent(localDateTime);
   }
+
+  @Override
+  public void deleteAllOutboxStaleData(LocalDateTime localDateTime) {
+    outboxJpaRepository.deleteAllOutboxStaleData(localDateTime);
+  }
 }

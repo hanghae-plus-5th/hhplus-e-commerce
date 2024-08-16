@@ -24,7 +24,7 @@ public class OrderScheduler {
 
   @Scheduled(fixedDelay = 10000)
   @Transactional
-  public void retryDataPlatformEvent() throws JsonProcessingException {
+  public void retryOutboxEvent() throws JsonProcessingException {
     LocalDateTime localDateTimeOf5MinutesAgo = LocalDateTime.now().minusMinutes(5);
     List<Outbox> outboxList = outboxRepository.findAllByFailEvent(localDateTimeOf5MinutesAgo);
 
@@ -34,6 +34,13 @@ public class OrderScheduler {
       DataPlatformEvent dataPlatformEvent = objectMapper.readValue(outbox.getMessage(), DataPlatformEvent.class);
       applicationEventPublisher.publishEvent(dataPlatformEvent);
     }
+  }
+
+  @Scheduled(cron = "0 0 0 * * *")
+  @Transactional
+  public void removeOutboxStaleData() {
+    LocalDateTime localDateTimeOf1DaysAgo = LocalDateTime.now().minusDays(1);
+    outboxRepository.deleteAllOutboxStaleData(localDateTimeOf1DaysAgo);
   }
 
 }

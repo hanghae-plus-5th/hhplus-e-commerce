@@ -12,4 +12,6 @@ public interface OutboxRepository {
   Optional<Outbox> findById(Long outboxId);
 
   List<Outbox> findAllByFailEvent(LocalDateTime localDateTimeOf5MinutesAgo);
+
+  void deleteAllOutboxStaleData(LocalDateTime localDateTimeOf1DaysAgo);
 }
