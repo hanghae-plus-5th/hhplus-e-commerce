@@ -34,13 +34,15 @@ public class OrderCommand {
   public record SendDataPlatform(
       Long orderId,
       Long userId,
-      Integer orderTotalPrice
-  ){
+      Integer orderTotalPrice,
+      Long outboxId
+  ) {
 
-    public SendDataPlatform(Long orderId, Long userId, Integer orderTotalPrice) {
+    public SendDataPlatform(Long orderId, Long userId, Integer orderTotalPrice, Long outboxId) {
       this.orderId = orderId;
       this.userId = userId;
       this.orderTotalPrice = orderTotalPrice;
+      this.outboxId = outboxId;
     }
   }
 }
