@@ -25,7 +25,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public List<Product> findAll() {
-    return productJpaRepository.findAll();
+    return productJpaRepository.findTop20Products();
   }
 
   @Override

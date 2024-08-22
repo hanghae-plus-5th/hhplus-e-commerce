@@ -26,6 +26,8 @@ public class WebConfig implements WebMvcConfigurer {
       "/api-docs",
       "/api/user/login",
       "/api/user/join",
+      "/api/product",
+      "/api/product/**",
   };
 
   @Bean
