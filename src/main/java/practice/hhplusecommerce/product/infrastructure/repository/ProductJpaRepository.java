@@ -17,4 +17,7 @@ public interface ProductJpaRepository extends JpaRepository<Product, Long> {
   @Lock(LockModeType.PESSIMISTIC_WRITE)
   @Query("SELECT P FROM Product P WHERE P.id IN :productIdList")
   List<Product> getProductListByProductIdListPessimisticRock(List<Long> productIdList);
+
+  @Query(value = "SELECT * FROM product LIMIT 20", nativeQuery = true)
+  List<Product> findTop20Products();
 }
