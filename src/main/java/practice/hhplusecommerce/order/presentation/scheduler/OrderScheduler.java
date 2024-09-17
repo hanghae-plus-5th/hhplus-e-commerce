@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import practice.hhplusecommerce.outbox.business.repository.OutboxRepository;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Profile("prod")
 public class OrderScheduler {
 
   private final OutboxRepository outboxRepository;
@@ -42,5 +44,4 @@ public class OrderScheduler {
     LocalDateTime localDateTimeOf1DaysAgo = LocalDateTime.now().minusDays(1);
     outboxRepository.deleteAllOutboxStaleData(localDateTimeOf1DaysAgo);
   }
-
 }
