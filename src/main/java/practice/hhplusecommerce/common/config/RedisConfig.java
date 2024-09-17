@@ -19,7 +19,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -70,7 +74,32 @@ public class RedisConfig {
   public RedissonClient redissonClient(){
     Config config = new Config();
     config.useSingleServer().setAddress(REDISSON_HOST_PREFIX + host + ":" + port);
-
     return Redisson.create(config);
+  }
+
+  @Bean
+  public RedisConnectionFactory redisConnectionFactory() {
+    return new LettuceConnectionFactory(host, port);
+  }
+
+  // redisTemplate: default Value Type = JSON
+  // If you want to use String Type, you can change ValueSerializer to StringRedisSerializer or Use StringRedisTemplate
+  @Bean
+  public RedisTemplate<?, ?> redisTemplate() {
+    RedisTemplate<?, ?> redisTemplate = new RedisTemplate<>();
+    redisTemplate.setConnectionFactory(redisConnectionFactory());   //connection
+    redisTemplate.setKeySerializer(new StringRedisSerializer());    // key
+    redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(String.class)); //Java Obj <-> JSON -> String Value
+    return redisTemplate;
+  }
+
+  /**
+   * Redis pub/sub 메시지 처리 Listener
+   */
+  @Bean
+  public RedisMessageListenerContainer redisMessageListener() {
+    RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+    container.setConnectionFactory(redisConnectionFactory());
+    return container;
   }
 }
