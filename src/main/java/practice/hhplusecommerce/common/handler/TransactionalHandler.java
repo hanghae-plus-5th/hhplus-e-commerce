@@ -1,6 +1,5 @@
 package practice.hhplusecommerce.common.handler;
 
-import java.util.function.Function;
 import java.util.function.Supplier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
