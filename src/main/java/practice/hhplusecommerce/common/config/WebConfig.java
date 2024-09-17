@@ -19,10 +19,10 @@ public class WebConfig implements WebMvcConfigurer {
   private final JwtTokenInterceptor jwtTokenInterceptor;
 
   private final String[] JWT_INTERCEPTOR_URI = {
-      "/swagger-ui/index.html",
-      "/swagger-ui/swagger-ui-bundle.js",
-      "/swagger-ui/swagger-initializer.js",
-      "/api-docs/swagger-config",
+      "/swagger-ui/**",
+      "/v3/**",
+      "/v3/api-docs",
+      "/api-docs/**",
       "/api-docs",
       "/api/user/login",
       "/api/user/join",

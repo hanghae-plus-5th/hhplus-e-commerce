@@ -30,6 +30,14 @@ spring:
 jwt:
   secret-key: TESG@!#$
 
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    # API 문서의 경로를 설정합니다.
+  swagger-ui:
+    path: /swagger-ui.html
+    # Swagger UI 페이지의 경로를 설정합니다.
+
 # 로깅 설정 (옵션)
 logging:
   level:

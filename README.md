@@ -4,9 +4,10 @@
 - SpringBoot 3.3.1
 - MySql/JPA
 - Redis
-- Kafaka
+- Kafaka (kafka-ui : http://localhost:8081/, 토픽자동생성)
 - JUnit + AssertJ
 - Layered Architecture Based
+- swagger (http://localhost:8080/swagger-ui/index.html, 유저로그인 => Authorize에 토큰)
 
 
 
@@ -25,8 +26,8 @@ docker-compose -f application-setting-docker-compose.yml up -d
 ## 📕 Milestone
 [https://github.com/users/whitewise95/projects/4/views/1](https://github.com/users/whitewise95/projects/4/views/1)
 
-## 📕 시퀀스 다이어그램  
-[https://github.com/whitewise95/hhplus-e-commerce/tree/main/docs](https://github.com/whitewise95/hhplus-e-commerce/tree/main/docs)  
+## 📕 시퀀스 다이어그램
+[https://github.com/whitewise95/hhplus-e-commerce/tree/main/docs](https://github.com/whitewise95/hhplus-e-commerce/tree/main/docs)
 
 ### 📕 ERD 설계
 [https://www.erdcloud.com/d/k2Bg73mHyuFcitshf](https://www.erdcloud.com/d/k2Bg73mHyuFcitshf)
