@@ -1,19 +1,24 @@
 # 1. hhplus-e-commerce
-소개 
+
+- java 21
+- SpringBoot 3.3.1
+- MySql/JPA
+- Redis
+- Kafaka
+- JUnit + AssertJ
+- Layered Architecture Based
 
 
-# 2. 개발 환경 
->  Architecture
 
-Layered Architecture Based
 
-> DB ORM
+# 2. 개발 환경 셋팅
+redis, mysql, kafka를 전부 `application-setting-docker-compose.yml` (dockerCompose)로 관리하는중
 
-MySql/JPA
+```
+docker-compose -f application-setting-docker-compose.yml up -d
+```
 
-> Test
 
-JUnit + AssertJ 
 
 
 # 3. 시나리오 분석 및 작업계획
