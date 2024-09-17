@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import practice.hhplusecommerce.user.business.entity.User;
 
@@ -15,5 +16,5 @@ public interface UserJpaRepository extends JpaRepository<User, Long> {
 
   @Lock(LockModeType.PESSIMISTIC_WRITE)
   @Query("SELECT U FROM User U WHERE U.id = :userId")
-  Optional<User> findByIdPessimisticLock(Long userId);
+  Optional<User> findByIdPessimisticLock(@Param("userId") Long userId);
 }

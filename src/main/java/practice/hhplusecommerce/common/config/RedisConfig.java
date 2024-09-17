@@ -9,6 +9,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +26,14 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 @EnableCaching
 public class RedisConfig {
+
+  @Value("${spring.data.redis.host}")
+  private String host;
+
+  @Value("${spring.data.redis.port}")
+  private int port;
+
+  private static final String REDISSON_HOST_PREFIX = "redis://";
 
   @Bean
   public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
@@ -52,5 +64,13 @@ public class RedisConfig {
         .cacheDefaults(cacheConfig)
         .withInitialCacheConfigurations(cacheConfigurations)
         .build();
+  }
+
+  @Bean
+  public RedissonClient redissonClient(){
+    Config config = new Config();
+    config.useSingleServer().setAddress(REDISSON_HOST_PREFIX + host + ":" + port);
+
+    return Redisson.create(config);
   }
 }
