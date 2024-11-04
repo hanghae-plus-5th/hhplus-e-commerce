@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import practice.hhplusecommerce.common.exception.NotFoundException;
 import practice.hhplusecommerce.common.handler.TransactionalHandler;
 import practice.hhplusecommerce.common.jwt.JwtTokenProvider;
+import practice.hhplusecommerce.user.application.UserFacade;
 import practice.hhplusecommerce.user.business.dto.UserServiceResponseDto.TokenResponse;
 import practice.hhplusecommerce.user.business.entity.User;
 import practice.hhplusecommerce.user.business.repository.UserRepository;
@@ -26,6 +27,10 @@ public class UserServiceIntegrationTest {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private UserFacade userFacade;
+
 
   @Autowired
   private UserRepository userRepository;
@@ -197,6 +202,32 @@ public class UserServiceIntegrationTest {
     CompletableFuture<?>[] futures = IntStream.range(0, 1000)
         .mapToObj(i -> CompletableFuture.runAsync(() -> userService.chargeUserAmount(saveUser.getId(), chargeAmount)))
         .toArray(CompletableFuture[]::new);
+
+    CompletableFuture.allOf(futures).join();
+
+    //then
+    User when = userRepository.findById(saveUser.getId()).get();
+    userRepository.delete(when);
+
+    assertEquals(when.getId(), saveUser.getId());
+    assertEquals(when.getName(), saveUser.getName());
+    assertEquals(chargeAmount * 1000, when.getAmount());
+  }
+
+  @Test
+  public void 잔액충전기능_동시성_비관락_통합테스트_레디스() {
+    //given
+    String userName = "백현명";
+    int amount = 0;
+    int chargeAmount = 1500;
+
+    User user = new User(null, userName, amount);
+    User saveUser = userRepository.save(user);
+
+    //when
+    CompletableFuture<?>[] futures = IntStream.range(0, 1000)
+            .mapToObj(i -> CompletableFuture.runAsync(() -> userFacade.chargeUserAmountOfRedis(saveUser.getId(), chargeAmount)))
+            .toArray(CompletableFuture[]::new);
 
     CompletableFuture.allOf(futures).join();
 

@@ -29,6 +29,13 @@ public class UserService {
     return user;
   }
 
+  @Transactional
+  public User chargeUserAmountOfRedis(Long userId, Integer chargeAmount) {
+    User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("유저", true));
+    user.chargeAmount(chargeAmount);
+    return user;
+  }
+
   @Transactional(readOnly = true)
   public UserServiceResponseDto.TokenResponse login(String name) {
     User user = userRepository.findByName(name).orElseThrow(() -> new NotFoundException("유저", true));

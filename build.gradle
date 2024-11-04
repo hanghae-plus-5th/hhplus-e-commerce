@@ -48,6 +48,8 @@ dependencies {
     //redis and cache
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation group: 'org.redisson', name: 'redisson', version: '3.2.0'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     //kafka
     implementation 'org.springframework.kafka:spring-kafka'
